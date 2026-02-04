@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Screens Inventory",
+  "description": "Inventaire structure de tous les ecrans wireframe du projet",
+  "type": "object",
+  "properties": {
+    "project": { "type": "string", "description": "Nom du projet" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "file", "description", "persona"],
+        "properties": {
+          "id": { "type": "string", "description": "Identifiant unique (slug)" },
+          "name": { "type": "string", "description": "Nom affichable" },
+          "file": { "type": "string", "description": "Chemin relatif vers le fichier HTML" },
+          "description": { "type": "string" },
+          "persona": { "type": "string" },
+          "group": { "type": "string", "description": "Groupe logique (ex: Authentification, Dashboard)" },
+          "flow_in": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Ecrans depuis lesquels on arrive"
+          },
+          "flow_out": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Ecrans vers lesquels on peut naviguer"
+          },
+          "components": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "data-component utilises dans cet ecran"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "element": { "type": "string" },
+                "behavior": { "type": "string" },
+                "destination": { "type": "string" }
+              },
+              "required": ["name", "behavior"]
+            }
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "description": { "type": "string" }
+              },
+              "required": ["name", "type"]
+            }
+          },
+          "states": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "enum": ["default", "empty", "loading", "error", "success"] },
+                "description": { "type": "string" }
+              },
+              "required": ["name", "description"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["project", "screens"]
+}

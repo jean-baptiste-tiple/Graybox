@@ -1,5 +1,69 @@
 /* ==========================================================================
    WIREFRAME.CSS - Systeme de composants wireframe monochrome & responsive
+   ==========================================================================
+
+   INVENTAIRE DES COMPOSANTS (~70)
+   --------------------------------
+
+   VARIABLES          --wf-* (couleurs, typo, radius, shadow, focus)
+   RESET & BASE       Reset global, liens, focus-visible
+
+   LAYOUT             .wf-page, .wf-container (narrow, wide),
+                      .wf-row (no-wrap, center, between),
+                      .wf-col (2, 3, auto), .wf-stack (sm, lg),
+                      .wf-grid (2, 3, 4), .wf-layout-sidebar,
+                      .wf-sidebar, .wf-main
+
+   TYPOGRAPHY         .wf-h1..h4, .wf-text (sm, xs, lg, muted, light,
+                      mono, center, right, bold)
+
+   NAVIGATION         .wf-navbar, .wf-navbar__logo, .wf-navbar__link,
+                      .wf-sidenav, .wf-sidenav__item, .wf-sidenav__heading,
+                      .wf-tabs, .wf-tabs__tab,
+                      .wf-breadcrumbs, .wf-pagination,
+                      .wf-bottomnav (mobile)
+
+   CARDS & SURFACES   .wf-card (clickable), .wf-card__header/body/footer,
+                      .wf-panel, .wf-divider
+
+   BUTTONS            .wf-btn (primary, ghost, danger, sm, lg, icon, disabled),
+                      .wf-btn-group
+
+   FORMS              .wf-form-group, .wf-label (required), .wf-input (error),
+                      .wf-textarea, .wf-select, .wf-check, .wf-help (error),
+                      .wf-search, .wf-toggle
+
+   DATA DISPLAY       .wf-table, .wf-list, .wf-list__item (clickable),
+                      .wf-badge (filled), .wf-tag, .wf-chip (active, group),
+                      .wf-avatar (sm, lg), .wf-avatar-group,
+                      .wf-stat, .wf-empty (title, text, action)
+
+   PLACEHOLDERS       .wf-placeholder (sm, lg, xl),
+                      .wf-img-placeholder (square, portrait)
+
+   FEEDBACK           .wf-alert (info, success, warning, error),
+                      .wf-toast, .wf-snackbar (success, error),
+                      .wf-modal, .wf-modal__header/footer,
+                      .wf-dropdown, .wf-dropdown__item,
+                      .wf-tooltip,
+                      .wf-drawer (left), .wf-drawer__header/body/footer,
+                      .wf-bottomsheet
+
+   PROGRESS           .wf-progress, .wf-progress__bar,
+                      .wf-skeleton, .wf-steps (active, done)
+
+   ANNOTATIONS        [data-note] (pseudo-element)
+
+   UTILITIES          .wf-hidden, .wf-sr-only, .wf-mt/mb/p/gap-0..4,
+                      .wf-w-full, .wf-h-full, .wf-flex-center, .wf-truncate,
+                      .wf-hide-tablet, .wf-hide-mobile
+
+   SPECIAL            .wf-upload, .wf-timeline, .wf-kanban,
+                      .wf-spotlight (command palette), .wf-accordion
+
+   INDEX PAGE         .wf-index-grid, .wf-index-card, .wf-index-group,
+                      .wf-index-flow
+
    ========================================================================== */
 
 /* --- VARIABLES --- */
@@ -15,11 +79,22 @@
   --wf-text-light: #bbbbbb;
   --wf-accent: #333333;         /* ← couleur primaire du projet */
   --wf-accent-light: #555555;   /* ← variante claire de la primaire */
-  --wf-danger: #666666;
+  --wf-danger: #b91c1c;         /* ← rouge distinctif pour erreurs/danger */
+  --wf-danger-light: #fef2f2;   /* ← fond pour alertes danger */
+  --wf-success: #15803d;        /* ← vert pour confirmations/succes */
+  --wf-success-light: #f0fdf4;  /* ← fond pour alertes succes */
+  --wf-warning: #a16207;        /* ← jaune/orange pour avertissements */
+  --wf-warning-light: #fefce8;  /* ← fond pour alertes warning */
+  --wf-info: #1d4ed8;           /* ← bleu pour messages informatifs */
+  --wf-info-light: #eff6ff;     /* ← fond pour alertes info */
+  --wf-note-bg: #fffde7;        /* ← fond des annotations */
+  --wf-note-border: #f0e68c;    /* ← bordure des annotations */
+  --wf-note-text: #666666;      /* ← texte des annotations */
   --wf-radius: 4px;
   --wf-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --wf-font-mono: "SF Mono", "Fira Code", monospace;
   --wf-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --wf-focus: 0 0 0 2px var(--wf-accent);  /* ← outline pour focus clavier */
 }
 
 /* --- RESET & BASE --- */
@@ -50,6 +125,20 @@ a {
 
 a:hover {
   color: var(--wf-text);
+}
+
+/* Focus visible (accessibilite clavier) */
+:focus-visible {
+  outline: 2px solid var(--wf-accent);
+  outline-offset: 2px;
+}
+
+.wf-btn:focus-visible,
+.wf-input:focus-visible,
+.wf-textarea:focus-visible,
+.wf-select:focus-visible {
+  box-shadow: var(--wf-focus);
+  outline: none;
 }
 
 /* ==========================================================================
@@ -618,7 +707,7 @@ a:hover {
 }
 
 .wf-search::before {
-  content: "Search";
+  content: "\1F50D";  /* 🔍 icone loupe universelle */
   position: absolute;
   left: 0.75rem;
   top: 50%;
@@ -761,6 +850,26 @@ a:hover {
   opacity: 0.3;
 }
 
+.wf-empty__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--wf-text);
+  margin-bottom: 0.25rem;
+}
+
+.wf-empty__text {
+  font-size: 0.875rem;
+  color: var(--wf-text-muted);
+  margin-bottom: 1rem;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wf-empty__action {
+  margin-top: 0.5rem;
+}
+
 /* ==========================================================================
    PLACEHOLDERS (pour zones non definies)
    ========================================================================== */
@@ -814,11 +923,23 @@ a:hover {
 }
 
 .wf-alert--info {
-  border-left: 4px solid var(--wf-accent);
+  border-left: 4px solid var(--wf-info);
+  background: var(--wf-info-light);
+}
+
+.wf-alert--success {
+  border-left: 4px solid var(--wf-success);
+  background: var(--wf-success-light);
+}
+
+.wf-alert--warning {
+  border-left: 4px solid var(--wf-warning);
+  background: var(--wf-warning-light);
 }
 
 .wf-alert--error {
   border-left: 4px solid var(--wf-danger);
+  background: var(--wf-danger-light);
 }
 
 /* Toast / Notification */
@@ -1017,8 +1138,8 @@ a:hover {
   border-color: var(--wf-accent);
   background: var(--wf-accent);
   color: var(--wf-white);
-  content: "OK";
-  font-size: 0.625rem;
+  content: "\2713";  /* ✓ checkmark */
+  font-size: 0.75rem;
 }
 
 /* ==========================================================================
@@ -1036,9 +1157,9 @@ a:hover {
   right: -0.5rem;
   font-size: 0.625rem;
   line-height: 1.3;
-  color: #666;
-  background: #fffde7;
-  border: 1px solid #f0e68c;
+  color: var(--wf-note-text);
+  background: var(--wf-note-bg);
+  border: 1px solid var(--wf-note-border);
   padding: 0.15rem 0.4rem;
   border-radius: 2px;
   max-width: 200px;
@@ -1515,4 +1636,361 @@ a:hover {
 .wf-index-card__meta {
   font-size: 0.75rem;
   color: var(--wf-text-muted);
+}
+
+/* ==========================================================================
+   INDEX PAGE - SITEMAP VISUEL
+   ========================================================================== */
+
+.wf-index-group {
+  margin-bottom: 2rem;
+}
+
+.wf-index-group__title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--wf-text-muted);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--wf-border);
+}
+
+.wf-index-card--planned {
+  opacity: 0.5;
+  border-style: dashed;
+}
+
+.wf-index-card__status {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.375rem;
+  border-radius: 2px;
+  float: right;
+}
+
+.wf-index-card__status--ready {
+  background: var(--wf-success-light);
+  color: var(--wf-success);
+}
+
+.wf-index-card__status--planned {
+  background: var(--wf-surface);
+  color: var(--wf-text-light);
+}
+
+.wf-index-flow {
+  font-size: 0.75rem;
+  color: var(--wf-text-muted);
+  padding: 0.75rem 1rem;
+  background: var(--wf-surface);
+  border-radius: var(--wf-radius);
+  margin-bottom: 1rem;
+}
+
+.wf-index-flow__arrow {
+  color: var(--wf-accent);
+  margin: 0 0.25rem;
+}
+
+/* ==========================================================================
+   BOTTOM NAVIGATION (mobile)
+   ========================================================================== */
+
+.wf-bottomnav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--wf-white);
+  border-top: 2px solid var(--wf-border);
+  padding: 0.5rem 0;
+  z-index: 800;
+}
+
+.wf-bottomnav__items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.wf-bottomnav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  text-decoration: none;
+  color: var(--wf-text-muted);
+  font-size: 0.625rem;
+  padding: 0.25rem 0.75rem;
+  transition: color 0.15s;
+}
+
+.wf-bottomnav__item:hover {
+  color: var(--wf-text);
+}
+
+.wf-bottomnav__item--active {
+  color: var(--wf-accent);
+}
+
+.wf-bottomnav__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .wf-bottomnav {
+    display: block;
+  }
+
+  /* Compenser la hauteur de la bottom nav */
+  .wf-bottomnav ~ .wf-page,
+  body:has(.wf-bottomnav) {
+    padding-bottom: 4rem;
+  }
+}
+
+/* ==========================================================================
+   ACCORDION / COLLAPSIBLE
+   ========================================================================== */
+
+.wf-accordion {
+  border: 2px solid var(--wf-border);
+  border-radius: var(--wf-radius);
+  overflow: hidden;
+}
+
+.wf-accordion__item {
+  border-bottom: 1px solid var(--wf-border);
+}
+
+.wf-accordion__item:last-child {
+  border-bottom: none;
+}
+
+.wf-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--wf-white);
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--wf-text);
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.wf-accordion__trigger:hover {
+  background: var(--wf-surface);
+}
+
+.wf-accordion__trigger::after {
+  content: "\25B6";  /* ▶ */
+  font-size: 0.625rem;
+  transition: transform 0.15s;
+  color: var(--wf-text-muted);
+}
+
+.wf-accordion__item--open .wf-accordion__trigger::after {
+  transform: rotate(90deg);
+}
+
+.wf-accordion__content {
+  display: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  background: var(--wf-white);
+  border-top: 1px solid var(--wf-border);
+}
+
+.wf-accordion__item--open .wf-accordion__content {
+  display: block;
+}
+
+/* ==========================================================================
+   DRAWER / SHEET (panneau lateral)
+   ========================================================================== */
+
+.wf-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 850;
+}
+
+.wf-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 90vw;
+  background: var(--wf-white);
+  border-left: 2px solid var(--wf-border);
+  z-index: 860;
+  display: flex;
+  flex-direction: column;
+}
+
+.wf-drawer--left {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 2px solid var(--wf-border);
+}
+
+.wf-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--wf-border);
+  flex-shrink: 0;
+}
+
+.wf-drawer__title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.wf-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+
+.wf-drawer__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--wf-border);
+  flex-shrink: 0;
+}
+
+/* Bottom sheet (mobile) */
+.wf-bottomsheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--wf-white);
+  border-top: 2px solid var(--wf-border);
+  border-radius: 12px 12px 0 0;
+  z-index: 860;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wf-bottomsheet__handle {
+  width: 2rem;
+  height: 0.25rem;
+  background: var(--wf-border-strong);
+  border-radius: 999px;
+  margin: 0.75rem auto;
+  flex-shrink: 0;
+}
+
+.wf-bottomsheet__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 1.25rem 1.25rem;
+}
+
+/* ==========================================================================
+   CHIP / FILTER TAG
+   ========================================================================== */
+
+.wf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  border: 1px solid var(--wf-border);
+  border-radius: 999px;
+  color: var(--wf-text);
+  background: var(--wf-white);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+
+.wf-chip:hover {
+  background: var(--wf-surface);
+  border-color: var(--wf-border-strong);
+}
+
+.wf-chip--active {
+  background: var(--wf-accent);
+  border-color: var(--wf-accent);
+  color: var(--wf-white);
+}
+
+.wf-chip--active:hover {
+  background: var(--wf-accent-light);
+}
+
+.wf-chip__remove {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.wf-chip__remove:hover {
+  opacity: 1;
+}
+
+.wf-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   SNACKBAR (feedback d'action en bas)
+   ========================================================================== */
+
+.wf-snackbar {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--wf-text);
+  color: var(--wf-white);
+  border-radius: var(--wf-radius);
+  font-size: 0.875rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 280px;
+  max-width: 90vw;
+}
+
+.wf-snackbar__action {
+  color: var(--wf-accent-light);
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.wf-snackbar--success {
+  background: var(--wf-success);
+}
+
+.wf-snackbar--error {
+  background: var(--wf-danger);
 }

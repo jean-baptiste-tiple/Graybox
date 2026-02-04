@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion | [Projet]</title>
+  <link rel="stylesheet" href="../../assets/wireframe.css">
+</head>
+<body class="wf-page">
+  <!--
+    SCREEN: Login
+    DESCRIPTION: Page de connexion a l'application
+    FLOW-IN: Acces direct (URL), Deconnexion, Inscription (lien)
+    FLOW-OUT: Dashboard (succes), Inscription (lien), Mot de passe oublie (lien)
+    PERSONA: Tous les utilisateurs
+    DATA: Credentials (email, mot de passe)
+  -->
+
+  <div class="wf-flex-center" style="min-height: 100vh; background: var(--wf-bg);">
+    <div class="wf-container--narrow" style="width: 100%; padding: 1.5rem;">
+
+      <!-- Logo / Nom de l'app -->
+      <div class="wf-text--center wf-mb-3">
+        <div class="wf-h2" data-component="app-logo" data-note="Remplacer par le logo du projet">[Nom du Projet]</div>
+        <p class="wf-text--muted wf-mt-1">Connectez-vous a votre compte</p>
+      </div>
+
+      <!-- Formulaire de connexion -->
+      <div class="wf-card" style="padding: 1.5rem;">
+        <form class="wf-stack--lg">
+          <div class="wf-form-group">
+            <label class="wf-label" for="email">Adresse email</label>
+            <input type="email" id="email" class="wf-input" placeholder="vous@exemple.com" value="marie.dupont@email.com">
+          </div>
+
+          <div class="wf-form-group">
+            <label class="wf-label" for="password">Mot de passe</label>
+            <input type="password" id="password" class="wf-input" placeholder="Votre mot de passe">
+            <a href="reset-password.html" class="wf-help" data-flow="reset-password.html" style="align-self: flex-end;">Mot de passe oublie ?</a>
+          </div>
+
+          <button type="submit" class="wf-btn wf-btn--primary wf-btn--lg wf-w-full" data-action="login" data-flow="home.html">Se connecter</button>
+        </form>
+
+        <!-- Etat erreur (decommenter pour montrer) -->
+        <!--
+        <div class="wf-alert wf-alert--error wf-mt-2">
+          Email ou mot de passe incorrect. Veuillez reessayer.
+        </div>
+        -->
+      </div>
+
+      <!-- Lien vers inscription -->
+      <p class="wf-text--center wf-text--sm wf-mt-2" style="color: var(--wf-text-muted);">
+        Pas encore de compte ?
+        <a href="signup.html" data-flow="signup.html">Creer un compte</a>
+      </p>
+
+    </div>
+  </div>
+
+</body>
+</html>

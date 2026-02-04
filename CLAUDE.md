@@ -8,12 +8,13 @@ Tu ne remplis pas des formulaires. Tu discutes, tu comprends, tu proposes. L'uti
 
 Tu travailles en 4 phases, mais ces phases sont un cap general, pas des portes fermees. Si l'utilisateur veut parler d'un ecran alors qu'on n'a pas fini le brief, tu suis. Tu captures l'info et tu la ranges au bon endroit.
 
-## Les 4 phases
+## Les 5 phases
 
 1. **Brief** (`/wf-brief`) : Comprendre l'app, ses utilisateurs, ses objectifs. L'utilisateur decrit, tu synthetises.
 2. **Architecture** (`/wf-architect`) : Proposer les ecrans, leur hierarchie, les parcours. Tu raisonnes comme un product designer.
 3. **Ecrans** (`/wf-screen [nom]`) : Dessiner chaque ecran en HTML/CSS wireframe.
-4. **Finalisation** (`/wf-review` puis `/wf-export`) : Verifier la coherence et generer la doc pour le dev.
+4. **Iteration** (`/wf-edit [nom]`) : Modifier un ecran existant, propager les composants partages.
+5. **Finalisation** (`/wf-review` puis `/wf-export`) : Verifier la coherence et generer la doc pour le dev.
 
 ## Memoire du projet : project-state.md
 
@@ -36,9 +37,11 @@ Ce fichier est ecrit en prose, pas en checklist rigide. Il doit etre lisible par
 ### HTML/CSS
 
 - **HTML/CSS pur** : Pas de JavaScript, pas de framework, pas de build tool.
-- **Quasi-monochrome** : Noir, blanc, gris + une couleur primaire choisie par l'utilisateur. Cette couleur est stockee dans `--wf-accent` et `--wf-accent-light` dans `assets/wireframe.css`. Toujours utiliser ces variables, jamais de couleurs en dur.
+- **Quasi-monochrome** : Noir, blanc, gris + une couleur primaire choisie par l'utilisateur. Cette couleur est stockee dans `--wf-accent` et `--wf-accent-light` dans `assets/wireframe.css`. Toujours utiliser ces variables CSS, jamais de couleurs en dur.
+- **Couleurs semantiques** : Les variables `--wf-danger`, `--wf-success`, `--wf-warning`, `--wf-info` (et leurs variantes `-light`) sont disponibles pour les etats. Toujours les utiliser.
 - **Responsive** : Chaque ecran fonctionne sur mobile (480px), tablette (768px), desktop (1200px+).
 - **Etats** : Les composants interactifs montrent leurs etats (hover, active, disabled, error, empty, loading).
+- **Accessibilite** : Utiliser des headings hierarchiques (h1 > h2 > h3), des labels sur les inputs, et `:focus-visible` est gere globalement par le CSS.
 
 ### Auto-documentation des ecrans
 
@@ -62,9 +65,19 @@ Chaque fichier `screens/*.html` contient sa propre documentation :
 - `data-flow="ecran.html"` : navigation vers un autre ecran
 - `data-action="nom"` : action declenchee (create, delete, submit, etc.)
 
+### Composants partages (_partials)
+
+Les composants qui apparaissent sur plusieurs ecrans (navbar, sidebar, footer, bottom nav) sont stockes comme fichiers de reference dans `screens/_partials/` :
+
+- `_navbar.html`, `_sidebar-app.html`, `_bottomnav-app.html`, etc.
+- Ces fichiers contiennent uniquement le fragment HTML du composant (pas de `<!DOCTYPE>`)
+- **A la creation d'un ecran** (`/wf-screen`) : lire les partials existants et utiliser leur markup
+- **A la modification** (`/wf-edit`) : si un composant partage est modifie, mettre a jour le partial ET propager a tous les ecrans qui l'utilisent
+- Les partials sont la **source de verite** pour le markup des composants partages
+
 ### Coherence
 
-- La navigation (navbar, sidebar) doit etre identique sur tous les ecrans qui la partagent
+- La navigation (navbar, sidebar) doit etre identique sur tous les ecrans qui la partagent — utiliser les partials comme reference
 - Les liens `<a href>` entre ecrans doivent utiliser des chemins relatifs et pointer vers des fichiers existants
 - Le contenu doit etre realiste (pas de lorem ipsum)
 - Utiliser les composants de `assets/wireframe.css` avant d'en creer de nouveaux
@@ -76,18 +89,44 @@ Chaque fichier `screens/*.html` contient sa propre documentation :
 ├── CLAUDE.md              # Ce fichier
 ├── project-state.md       # Memoire du projet (cree par /wf-brief)
 ├── project-brief.md       # Brief synthetise
-├── architecture.md        # Architecture des ecrans et flows
+├── architecture.md        # Architecture des ecrans, flows et parcours
 ├── assets/
-│   └── wireframe.css      # Composants CSS
+│   └── wireframe.css      # Composants CSS (~70 composants)
 ├── screens/
-│   ├── _index.html        # Index de navigation
+│   ├── _index.html        # Index visuel / sitemap des ecrans
+│   ├── _partials/         # Composants HTML partages (navbar, sidebar, etc.)
+│   │   ├── _navbar.html
+│   │   ├── _sidebar-app.html
+│   │   └── _bottomnav-app.html
 │   └── *.html             # Ecrans wireframe
-├── specs/                 # Documentation pour le dev
-│   ├── prd-wireframe.md
-│   ├── screens.json
-│   └── components.json
+├── _templates/            # Templates de demarrage (reference, ne pas modifier)
+│   ├── screens/           # Ecrans types (login, signup, home, etc.)
+│   └── partials/          # Partials types (sidebar, bottom nav, etc.)
+├── specs/                 # Documentation pour le dev (generee par /wf-export)
+│   ├── _schemas/          # JSON schemas de reference
+│   │   ├── screens.schema.json
+│   │   └── components.schema.json
+│   ├── prd-wireframe.md   # PRD auto-suffisant
+│   ├── screens.json       # Inventaire structure des ecrans
+│   └── components.json    # Inventaire des composants
 └── .claude/commands/      # Skills
+    ├── wf-brief.md
+    ├── wf-architect.md
+    ├── wf-screen.md
+    ├── wf-edit.md
+    ├── wf-review.md
+    └── wf-export.md
 ```
+
+## Templates de demarrage
+
+Le dossier `_templates/` contient des ecrans et partials de reference pour les patterns courants :
+- **login.html** : Page de connexion
+- **signup.html** : Page d'inscription
+- **reset-password.html** : Mot de passe oublie
+- **home.html** : Page d'accueil authentifiee avec sidebar (desktop) et bottom nav (mobile)
+
+Quand `/wf-screen` cree un ecran de type courant (login, settings, etc.), il peut s'inspirer de ces templates pour accelerer et garantir la coherence.
 
 ## Regles importantes
 
@@ -95,3 +134,5 @@ Chaque fichier `screens/*.html` contient sa propre documentation :
 - **Toujours mettre a jour project-state.md a la fin** de chaque travail
 - **Ne jamais bloquer** l'utilisateur parce qu'une phase precedente n'est pas "complete"
 - **Suggerer, ne pas imposer** : "On pourrait passer aux ecrans, qu'en penses-tu ?" plutot que "Phase 2 terminee, lancement Phase 3"
+- **Composants partages** : toujours verifier `screens/_partials/` avant de generer ou modifier un ecran
+- **Templates** : consulter `_templates/` quand on cree un ecran de type courant

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframes — Index</title>
+  <link rel="stylesheet" href="../assets/wireframe.css">
+  <style>
+    .wf-index-header {
+      padding: 2rem 1.5rem 1rem;
+      border-bottom: 2px solid var(--wf-border);
+      background: var(--wf-white);
+    }
+    .wf-index-header__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .wf-index-header__sub {
+      font-size: 0.875rem;
+      color: var(--wf-text-muted);
+    }
+    .wf-index-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      font-size: 0.8125rem;
+    }
+    .wf-index-stats__item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .wf-index-stats__dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+    }
+    .wf-index-stats__dot--ready { background: var(--wf-success); }
+    .wf-index-stats__dot--planned { background: var(--wf-border); }
+    .wf-index-body {
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="wf-page" style="background: var(--wf-bg);">
+
+  <!-- EN-TETE -->
+  <div class="wf-index-header">
+    <div class="wf-index-header__title">Wireframes</div>
+    <div class="wf-index-header__sub">Nom du projet — Index des ecrans</div>
+    <div class="wf-index-stats">
+      <div class="wf-index-stats__item">
+        <span class="wf-index-stats__dot wf-index-stats__dot--ready"></span>
+        Crees
+      </div>
+      <div class="wf-index-stats__item">
+        <span class="wf-index-stats__dot wf-index-stats__dot--planned"></span>
+        Prevus
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-index-body">
+
+    <!--
+      INSTRUCTIONS POUR LES SKILLS :
+
+      Chaque groupe d'ecrans est un <div class="wf-index-group">.
+      Chaque ecran est un <a class="wf-index-card">.
+      Ajouter --planned pour les ecrans pas encore crees.
+
+      Les flows sont affiches dans des <div class="wf-index-flow">.
+
+      Ce fichier est mis a jour par /wf-architect et /wf-screen.
+    -->
+
+    <!-- EXEMPLE DE GROUPE — a remplacer par le vrai contenu -->
+    <!--
+    <div class="wf-index-group">
+      <div class="wf-index-group__title">Authentification</div>
+
+      <div class="wf-index-flow">
+        Login <span class="wf-index-flow__arrow">→</span>
+        Dashboard
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Login <span class="wf-index-flow__arrow">→</span>
+        Inscription <span class="wf-index-flow__arrow">→</span>
+        Dashboard
+      </div>
+
+      <div class="wf-index-grid">
+        <a href="login.html" class="wf-index-card" style="text-decoration:none;color:inherit">
+          <div class="wf-index-card__preview">Login</div>
+          <div class="wf-index-card__info">
+            <div class="wf-index-card__title">
+              Login
+              <span class="wf-index-card__status wf-index-card__status--ready">Cree</span>
+            </div>
+            <div class="wf-index-card__meta">Tous · Connexion a l'application</div>
+          </div>
+        </a>
+
+        <a href="signup.html" class="wf-index-card wf-index-card--planned" style="text-decoration:none;color:inherit">
+          <div class="wf-index-card__preview">Inscription</div>
+          <div class="wf-index-card__info">
+            <div class="wf-index-card__title">
+              Inscription
+              <span class="wf-index-card__status wf-index-card__status--planned">Prevu</span>
+            </div>
+            <div class="wf-index-card__meta">Nouveaux utilisateurs · Creation de compte</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    -->
+
+    <div class="wf-empty">
+      <div class="wf-empty__icon">&#128196;</div>
+      <div class="wf-empty__title">Aucun ecran pour le moment</div>
+      <div class="wf-empty__text">Lance <code>/wf-brief</code> pour demarrer le projet, puis <code>/wf-architect</code> pour definir les ecrans.</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

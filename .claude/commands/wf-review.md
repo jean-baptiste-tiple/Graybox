@@ -10,46 +10,58 @@ Lis tous les fichiers existants :
 - `project-state.md`
 - `project-brief.md`
 - `architecture.md`
-- `flows.md`
 - `assets/wireframe.css`
+- `screens/_partials/` (composants partages)
 - Tous les fichiers dans `screens/`
 
 ### 2. Analyser
 
-Regarde ces aspects, sans en faire une checklist rigide -- concentre-toi sur ce qui pose vraiment probleme :
+Concentre-toi sur ce qui pose vraiment probleme. Voici les axes d'analyse, par ordre de priorite :
 
-**Navigation :**
-- Les liens entre ecrans fonctionnent-ils ? (pas de references a des fichiers inexistants)
-- La navigation (navbar, sidebar) est-elle coherente entre les ecrans ?
-- Y a-t-il des ecrans orphelins (rien n'y mene) ou des culs-de-sac (on ne peut rien faire depuis la) ?
+**Navigation & liens :**
+- Les `href` pointent vers des fichiers qui existent ?
+- Les `data-flow` sont coherents avec la realite des ecrans ?
+- Y a-t-il des ecrans orphelins (rien n'y mene) ou des culs-de-sac ?
 
-**Composants :**
+**Coherence des composants partages :**
+- La navbar/sidebar est-elle identique sur tous les ecrans qui la partagent ?
+- Les partials dans `_partials/` correspondent-ils au markup reel dans les ecrans ?
 - Les `data-component` sont-ils nommes de maniere coherente ?
-- Y a-t-il des composants identiques avec des markups differents sur differents ecrans ?
-- Le CSS utilise correspond-il a ce qui existe dans `wireframe.css` ?
 
-**Documentation :**
-- Les commentaires d'en-tete sont-ils presents et coherents ?
-- Les `data-note`, `data-flow`, `data-action` sont-ils utilises la ou c'est utile ?
+**Classes CSS :**
+- Les classes `wf-*` utilisees dans les ecrans existent-elles dans `wireframe.css` ?
+- Y a-t-il du style inline ou des classes inventees qui devraient etre dans le CSS ?
+
+**Documentation des ecrans :**
+- Chaque ecran a son commentaire d'en-tete (SCREEN, DESCRIPTION, FLOW-IN, FLOW-OUT, PERSONA, DATA) ?
+- Les `data-note`, `data-flow`, `data-action` sont utilises sur les elements non evidents ?
 
 **Brief vs realite :**
-- Ce qui a ete construit correspond-il a ce qui etait prevu dans le brief et l'architecture ?
-- Y a-t-il des ecrans prevus mais pas encore crees ?
+- Ce qui a ete construit correspond a ce qui etait prevu ?
+- Y a-t-il des ecrans prevus dans `architecture.md` mais pas encore crees ?
 
-**Qualite :**
-- Le contenu est-il realiste (pas de placeholder generiques) ?
-- Les etats importants sont-ils couverts (empty, error, loading) ?
-- Le responsive fonctionne-t-il ?
+**Qualite du contenu :**
+- Le contenu est realiste (pas de placeholder generiques) ?
+- Les etats importants sont documentes ou montres (empty, error, loading) ?
+
+**Accessibilite basique :**
+- Structure des headings coherente (h1 > h2 > h3, pas de saut) ?
+- Les elements interactifs ont des labels lisibles ?
+- Le contraste texte/fond est suffisant ?
 
 ### 3. Presenter les observations
 
-Presente ton audit de maniere conversationnelle. Organise par importance :
+Organise par importance, de maniere conversationnelle :
 
-1. **Problemes** : les trucs casses ou vraiment incoherents qu'il faut corriger
-2. **Suggestions** : les ameliorations qui rendraient l'ensemble plus solide
-3. **Points positifs** : ce qui est bien fait (pour que l'utilisateur sache ce qu'il faut garder)
+1. **Problemes** : ce qui est casse ou vraiment incoherent -- a corriger
+2. **Suggestions** : ce qui rendrait l'ensemble plus solide
+3. **Points positifs** : ce qui est bien fait
 
-Pour chaque probleme, propose une correction concrete. Si l'utilisateur le souhaite, applique les corrections toi-meme.
+Termine avec un resume chiffre :
+- X ecrans audites, Y composants partages
+- N problemes, M suggestions
+
+Pour chaque probleme, propose une correction concrete. Si l'utilisateur le souhaite, applique les corrections toi-meme avec `/wf-edit`.
 
 ### 4. Mettre a jour le state
 

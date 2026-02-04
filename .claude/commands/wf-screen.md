@@ -17,9 +17,12 @@ Lis ce qui existe, dans cet ordre :
 2. `project-brief.md` -- le brief
 3. `architecture.md` -- l'architecture prevue (s'il existe)
 4. `assets/wireframe.css` -- les composants CSS disponibles
-5. Les ecrans existants dans `screens/` -- pour la coherence (navigation, composants partages)
+5. `screens/_partials/` -- les composants partages (navbar, sidebar, etc.)
+6. Les ecrans existants dans `screens/` -- pour la coherence
 
 Ne bloque pas si certains fichiers n'existent pas. Travaille avec ce que tu as.
+
+> **Composants partages** : Si des fichiers existent dans `screens/_partials/` (ex: `_navbar.html`, `_sidebar.html`), utilise-les comme reference pour le markup des composants partages. Si tu crees un ecran avec un composant partage qui n'a pas encore de partial, cree le partial correspondant.
 
 ### 2. Concevoir l'ecran
 
@@ -97,11 +100,19 @@ Ajoute ou mets a jour la carte de cet ecran dans `screens/_index.html`. Si `_ind
 
 Mets a jour `project-state.md` : note quel ecran a ete cree, les choix faits, les composants ajoutes le cas echeant.
 
-### 6. Resume
+### 6. Creer/mettre a jour les partials
+
+Si l'ecran utilise des composants partages (navbar, sidebar, footer...), verifie que le partial existe dans `screens/_partials/`. S'il n'existe pas, cree-le avec le markup utilise. Le fichier partial ne contient que le fragment HTML du composant (pas de `<!DOCTYPE>`, pas de `<html>`).
+
+Nommage des partials : `_[nom-du-composant].html` (ex: `_navbar.html`, `_sidebar-app.html`).
+
+### 7. Resume
 
 Montre a l'utilisateur ce qui a ete genere :
 - Le fichier cree
 - Les composants principaux utilises
+- Les partials crees ou reutilises
 - Les flows (in/out)
 - Comment visualiser (ouvrir dans le navigateur)
+- Pour modifier cet ecran plus tard : `/wf-edit [nom]`
 - Une suggestion pour le prochain ecran a creer, si pertinent

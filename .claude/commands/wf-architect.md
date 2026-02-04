@@ -120,7 +120,7 @@ Quand l'architecture se stabilise, genere ou mets a jour `architecture.md` :
 | [choix fait] | [pourquoi] |
 ```
 
-Et genere aussi `flows.md` avec les diagrammes Mermaid et les tableaux detailles des parcours.
+Les diagrammes Mermaid et les parcours detailles sont inclus directement dans `architecture.md` (section "Parcours utilisateur"). Pas de fichier `flows.md` separe.
 
 ### 5. Creer l'index des ecrans
 
@@ -129,6 +129,10 @@ Cree ou mets a jour `screens/_index.html` : une page HTML qui liste tous les ecr
 ### 6. Mettre a jour le state
 
 Mets a jour `project-state.md` avec ce qui a ete couvert, les decisions prises, et ce qui reste a faire.
+
+### 7. Identifier les composants partages
+
+A partir de l'architecture, identifie les composants qui seront partages entre plusieurs ecrans (navbar, sidebar, footer, etc.). Documente-les dans la section "Composants partages" de `architecture.md`. Ces composants seront materialises en fichiers `screens/_partials/_[nom].html` lors de la creation des ecrans.
 
 Suggere la suite : "L'architecture est posee. On peut commencer a dessiner les ecrans. Lequel tu veux qu'on attaque en premier ? Je suggererais [ecran X] parce que [raison]."
 

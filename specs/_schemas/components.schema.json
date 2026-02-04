@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Components Inventory",
+  "description": "Inventaire des composants reutilisables identifies dans les wireframes",
+  "type": "object",
+  "properties": {
+    "project": { "type": "string", "description": "Nom du projet" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "screens"],
+        "properties": {
+          "id": { "type": "string", "description": "Valeur de data-component" },
+          "name": { "type": "string", "description": "Nom lisible" },
+          "description": { "type": "string" },
+          "screens": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Ecrans ou ce composant est utilise"
+          },
+          "is_shared": { "type": "boolean", "description": "True si le composant a un partial dans _partials/" },
+          "partial_file": { "type": "string", "description": "Chemin vers le fichier partial si is_shared" },
+          "props": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "description": { "type": "string" },
+                "required": { "type": "boolean" }
+              },
+              "required": ["name", "type"]
+            },
+            "description": "Donnees attendues par le composant"
+          },
+          "variants": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Variantes disponibles (ex: compact, expanded)"
+          },
+          "states": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Etats possibles (ex: active, disabled, loading)"
+          },
+          "css_classes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Classes wf-* principales utilisees"
+          }
+        }
+      }
+    }
+  },
+  "required": ["project", "components"]
+}

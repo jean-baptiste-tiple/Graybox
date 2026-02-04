@@ -6,11 +6,14 @@ L'objectif : un LLM qui lit les documents que tu produis doit pouvoir comprendre
 
 ## Ce que tu fais
 
+> **Idempotence** : cet export regenere TOUS les fichiers a chaque fois. Si des fichiers existent deja dans `specs/`, ils sont ecrases. C'est voulu : l'export reflete toujours l'etat actuel du projet.
+
 ### 1. Lire tout le projet
 
 Lis tous les fichiers :
-- `project-state.md`, `project-brief.md`, `architecture.md`, `flows.md`
+- `project-state.md`, `project-brief.md`, `architecture.md`
 - `assets/wireframe.css`
+- `screens/_partials/` (composants partages)
 - Tous les `screens/*.html`
 
 ### 2. Generer specs/prd-wireframe.md
