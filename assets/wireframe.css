@@ -3,6 +3,7 @@
    ========================================================================== */
 
 /* --- VARIABLES --- */
+/* Couleur primaire : modifiee par /wf-brief selon le choix de l'utilisateur */
 :root {
   --wf-white: #ffffff;
   --wf-bg: #fafafa;
@@ -12,8 +13,8 @@
   --wf-text: #222222;
   --wf-text-muted: #888888;
   --wf-text-light: #bbbbbb;
-  --wf-accent: #333333;
-  --wf-accent-light: #555555;
+  --wf-accent: #333333;         /* ← couleur primaire du projet */
+  --wf-accent-light: #555555;   /* ← variante claire de la primaire */
   --wf-danger: #666666;
   --wf-radius: 4px;
   --wf-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

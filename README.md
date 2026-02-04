@@ -40,7 +40,7 @@ Un PRD auto-suffisant contenant : vision produit, parcours utilisateur, specific
 ## Principes
 
 - **HTML/CSS pur** : pas de JS, pas de framework
-- **Monochrome** : noir, blanc, gris
+- **Quasi-monochrome** : noir, blanc, gris + une couleur primaire au choix
 - **Responsive** : mobile (480px), tablette (768px), desktop (1200px+)
 - **Auto-documente** : chaque ecran contient sa documentation (commentaires HTML, attributs `data-*`)
 - **Persistant** : `project-state.md` garde la memoire entre les sessions

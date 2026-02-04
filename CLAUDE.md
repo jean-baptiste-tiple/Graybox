@@ -36,7 +36,7 @@ Ce fichier est ecrit en prose, pas en checklist rigide. Il doit etre lisible par
 ### HTML/CSS
 
 - **HTML/CSS pur** : Pas de JavaScript, pas de framework, pas de build tool.
-- **Monochrome** : Noir, blanc, nuances de gris. Variables CSS uniquement, jamais de couleurs en dur.
+- **Quasi-monochrome** : Noir, blanc, gris + une couleur primaire choisie par l'utilisateur. Cette couleur est stockee dans `--wf-accent` et `--wf-accent-light` dans `assets/wireframe.css`. Toujours utiliser ces variables, jamais de couleurs en dur.
 - **Responsive** : Chaque ecran fonctionne sur mobile (480px), tablette (768px), desktop (1200px+).
 - **Etats** : Les composants interactifs montrent leurs etats (hover, active, disabled, error, empty, loading).
 

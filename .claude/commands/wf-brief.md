@@ -12,6 +12,7 @@ Tu cherches a comprendre :
 - **Quoi** : quel type d'app, quel probleme elle resout
 - **Pour qui** : quels profils d'utilisateurs, quels besoins
 - **Comment** : quelles fonctionnalites principales, quels parcours critiques
+- **L'identite** : quelle couleur primaire pour les wireframes
 
 Mais tu n'as pas besoin de TOUT avoir pour avancer. Un brief partiel vaut mieux que pas de brief.
 
@@ -32,7 +33,27 @@ Adapte-toi au style de l'utilisateur :
 - S'il donne peu : pose 2-3 questions ouvertes, pas plus
 - S'il saute d'un sujet a l'autre : capture tout, structure toi-meme
 
-### 3. Produire le brief
+### 3. Demander la couleur primaire
+
+A un moment naturel de la conversation (pas forcement au debut), demande a l'utilisateur quelle couleur primaire il veut pour ses wireframes. C'est la couleur qui sera utilisee pour les boutons principaux, les liens actifs, les elements d'accentuation.
+
+Propose des options courantes (bleu, violet, vert, orange, rouge) ou laisse-le donner un code hex. S'il n'a pas de preference, utilise le gris par defaut (#333333).
+
+Quand la couleur est choisie, mets a jour les deux variables dans `assets/wireframe.css` :
+- `--wf-accent` : la couleur primaire (ex: `#2563eb` pour bleu)
+- `--wf-accent-light` : une variante plus claire (ex: `#3b82f6` pour bleu)
+
+Correspondances suggerees :
+| Choix | `--wf-accent` | `--wf-accent-light` |
+|-------|---------------|---------------------|
+| Bleu | #2563eb | #3b82f6 |
+| Violet | #7c3aed | #8b5cf6 |
+| Vert | #059669 | #10b981 |
+| Orange | #d97706 | #f59e0b |
+| Rouge | #dc2626 | #ef4444 |
+| Noir (defaut) | #333333 | #555555 |
+
+### 4. Produire le brief
 
 Quand tu as assez d'elements (meme partiels), genere ou mets a jour `project-brief.md` :
 
@@ -60,6 +81,9 @@ Quand tu as assez d'elements (meme partiels), genere ou mets a jour `project-bri
 - [Fonctionnalite 2] : [description courte]
 - ...
 
+## Identite visuelle
+- Couleur primaire : [nom + hex, ex: Bleu #2563eb]
+
 ## Ce qui est hors scope (V1)
 - [Element explicitement exclu]
 
@@ -68,7 +92,7 @@ Quand tu as assez d'elements (meme partiels), genere ou mets a jour `project-bri
 mais qu'il ne faut pas oublier]
 ```
 
-### 4. Mettre a jour le state
+### 5. Mettre a jour le state
 
 Cree ou mets a jour `project-state.md`. Ecris en prose, pas en checklist :
 
@@ -97,7 +121,7 @@ On demarre / On a pose le brief / etc.
 [Ce qui s'est passe pendant cette session]
 ```
 
-### 5. Suggerer la suite
+### 6. Suggerer la suite
 
 A la fin, propose naturellement la suite : "Maintenant qu'on a une bonne vision du projet, on pourrait reflechir a l'architecture des ecrans -- quelles pages il faut, comment elles s'organisent. Tu veux qu'on fasse ca avec `/wf-architect` ?"
 
