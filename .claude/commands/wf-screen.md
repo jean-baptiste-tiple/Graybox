@@ -73,6 +73,7 @@ Cree `screens/[nom].html` avec :
 - Marque les composants reutilisables avec `data-component="nom"`.
 - Ajoute `data-note="..."` sur les elements non evidents pour expliquer leur role ou comportement.
 - Ajoute `data-flow="ecran.html"` sur les elements de navigation et `data-action="nom"` sur les boutons d'action.
+- Ajoute `data-transition="type"` sur les elements qui ont un `data-flow` pour decrire la transition visuelle (slide-left, slide-right, slide-up, fade, modal). Si absent, la transition est "none" par defaut.
 - Utilise des donnees fictives realistes. Pas de lorem ipsum, pas de "Texte ici".
 - Assure-toi que ca fonctionne sur les 3 breakpoints. Utilise les classes responsive (`wf-hide-mobile`, `wf-grid`, `wf-row` qui stack, etc.).
 

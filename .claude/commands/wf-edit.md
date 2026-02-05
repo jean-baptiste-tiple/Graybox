@@ -35,7 +35,7 @@ Si la demande est vague ("ameliore ce formulaire"), montre l'ecran actuel, propo
 Applique les modifications en respectant :
 - Le style et les conventions du fichier existant
 - Les composants de `wireframe.css` (prefixe `wf-`)
-- Les attributs `data-*` (component, note, flow, action)
+- Les attributs `data-*` (component, note, flow, action, transition)
 - La coherence avec les autres ecrans
 - Le commentaire d'en-tete : mets-le a jour si FLOW-IN, FLOW-OUT, ou DATA changent
 
