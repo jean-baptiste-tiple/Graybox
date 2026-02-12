@@ -42,7 +42,7 @@ Ce fichier est ecrit en prose, pas en checklist rigide. Il doit etre lisible par
 ### JSX/React
 
 - **JSX/React avec Vite** : Pas de state management complexe, pas de routing library. Les composants sont des fonctions React simples.
-- **Philosophie wireframe** : **90% gris, 10% couleur primaire**. Bordures pointillees (dashed), pas d'etats hover/focus. L'objectif est de valider la structure et les flows, pas le style visuel.
+- **Philosophie wireframe** : **90% gris, 10% couleur primaire**. Bordures fines et solides (1px solid gris clair), pas d'etats hover/focus. L'objectif est de valider la structure et les flows, pas le style visuel.
 - **Couleur primaire** : Choisie par l'utilisateur des le brief, stockee dans `--wf-accent` dans `src/styles/wireframe.css`. Utilisee avec parcimonie (boutons primaires, liens importants). Des variantes alpha (`--wf-accent-10`, `--wf-accent-20`, `--wf-accent-50`) sont aussi disponibles pour des teintes subtiles.
 - **Couleurs semantiques** : Les variables `--wf-danger`, `--wf-success`, `--wf-warning`, `--wf-info` sont disponibles pour les feedbacks (alerts, badges). Toujours les utiliser.
 - **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, bottom nav mobile. Modals et drawers plein ecran sur mobile. Classes utilitaires : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-show-desktop`, `wf-hide-desktop`, `wf-btn--block-mobile`.
@@ -77,7 +77,7 @@ Chaque fichier `src/screens/*.jsx` contient sa propre documentation via **JSDoc*
 
 **Attributs data-* sur les elements** (fonctionnent identiquement en JSX) :
 - `data-component="nom"` : composant reutilisable
-- `data-note="texte"` : annotation visible (fond jaune) pour expliquer un element
+- `data-note="texte"` : annotation invisible, apparait en tooltip au hover (texte blanc sur fond sombre)
 - `data-flow="ScreenName"` : navigation vers un autre ecran (nom du composant React)
 - `data-action="nom"` : action declenchee (create, delete, submit, etc.)
 - `data-transition="type"` : transition visuelle vers l'ecran cible
@@ -212,7 +212,7 @@ Export enrichi avec design system complet.
 
 Apres `/wf-design-tokens`, l'utilisateur peut demander a upgrader le rendu wireframe vers du quasi high-fidelity en appliquant les design tokens a `src/styles/wireframe.css` :
 - Remplacer les couleurs grises par la palette definie
-- Remplacer les bordures dashed par des bordures solid
+- Epaissir ou styliser les bordures selon la charte
 - Ajouter des hover states, des radius arrondis, des ombres
 - Appliquer la typographie choisie
 

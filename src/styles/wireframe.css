@@ -2,7 +2,7 @@
    WIREFRAME.CSS - Minimal wireframe kit for rapid UX prototyping
    ==========================================================================
 
-   Philosophy: 90% gray, 10% primary color. Dashed borders. No hover states.
+   Philosophy: 90% gray, 10% primary color. Thin solid borders. No hover states.
    Focus on structure and flows, not visual polish.
 
    ~80 components available, all in wireframe style.
@@ -108,7 +108,7 @@ a {
   width: 240px;
   flex-shrink: 0;
   padding: 1.5rem;
-  border-right: 2px dashed var(--wf-border);
+  border-right: 1px solid var(--wf-border);
   background: var(--wf-white);
 }
 
@@ -140,7 +140,7 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  border-bottom: 2px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   background: var(--wf-white);
 }
 
@@ -191,7 +191,7 @@ a {
 .wf-tabs {
   display: flex;
   gap: 0;
-  border-bottom: 2px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
 }
 
 .wf-tabs__tab {
@@ -222,7 +222,7 @@ a {
 
 .wf-pagination__item {
   padding: 0.5rem 0.75rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   text-decoration: none;
   color: var(--wf-text);
 }
@@ -241,7 +241,7 @@ a {
   left: 0;
   right: 0;
   background: var(--wf-white);
-  border-top: 2px dashed var(--wf-border);
+  border-top: 1px solid var(--wf-border);
   padding: 0.75rem 0;
 }
 
@@ -272,7 +272,7 @@ a {
 
 /* --- CARDS & SURFACES --- */
 .wf-card {
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
   padding: 1.5rem;
 }
@@ -280,7 +280,7 @@ a {
 .wf-card__header {
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -293,7 +293,7 @@ a {
 .wf-card__footer {
   padding-top: 1rem;
   margin-top: 1rem;
-  border-top: 1px dashed var(--wf-border);
+  border-top: 1px solid var(--wf-border);
 }
 
 .wf-panel {
@@ -306,7 +306,7 @@ a {
   height: 1px;
   background: var(--wf-border);
   margin: 1.5rem 0;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
 }
 
 /* --- BUTTONS --- */
@@ -317,7 +317,7 @@ a {
   font-weight: 700;
   text-align: center;
   text-decoration: none;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
   color: var(--wf-text);
   cursor: pointer;
@@ -388,7 +388,7 @@ a {
 .wf-input--error,
 .wf-textarea--error {
   border-color: var(--wf-danger);
-  border-style: dashed;
+  border-style: solid;
 }
 
 .wf-textarea {
@@ -487,14 +487,14 @@ a {
 .wf-table {
   width: 100%;
   border-collapse: collapse;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
 }
 
 .wf-table th,
 .wf-table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
 }
 
 .wf-table th {
@@ -509,12 +509,12 @@ a {
 
 .wf-list {
   list-style: none;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
 }
 
 .wf-list__item {
   padding: 0.75rem 1rem;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -529,7 +529,7 @@ a {
   padding: 0.125rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 700;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
 }
 
@@ -553,7 +553,7 @@ a {
   gap: 0.375rem;
   padding: 0.25rem 0.75rem;
   font-size: 0.8125rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
 }
 
@@ -570,7 +570,7 @@ a {
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-surface);
   font-weight: 700;
   font-size: 0.875rem;
@@ -649,7 +649,7 @@ a {
   top: 1rem;
   right: 1rem;
   padding: 0.75rem 1rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
   font-size: 0.875rem;
   min-width: 280px;
@@ -663,14 +663,14 @@ a {
   width: 90%;
   max-width: 500px;
   background: var(--wf-white);
-  border: 3px dashed var(--wf-text);
+  border: 1px solid var(--wf-border);
   padding: 0;
   z-index: 1000;
 }
 
 .wf-modal__header {
   padding: 1rem 1.25rem;
-  border-bottom: 2px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   font-weight: 700;
 }
 
@@ -680,7 +680,7 @@ a {
 
 .wf-modal__footer {
   padding: 1rem 1.25rem;
-  border-top: 2px dashed var(--wf-border);
+  border-top: 1px solid var(--wf-border);
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
@@ -694,14 +694,14 @@ a {
   width: 380px;
   max-width: 90vw;
   background: var(--wf-white);
-  border-left: 3px dashed var(--wf-text);
+  border-left: 1px solid var(--wf-border);
   z-index: 1000;
   padding: 1.5rem;
 }
 
 .wf-dropdown {
   position: absolute;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
   min-width: 200px;
   z-index: 100;
@@ -709,7 +709,7 @@ a {
 
 .wf-dropdown__item {
   padding: 0.5rem 1rem;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   cursor: pointer;
 }
 
@@ -723,7 +723,7 @@ a {
   left: 0;
   right: 0;
   background: var(--wf-white);
-  border-top: 3px dashed var(--wf-text);
+  border-top: 1px solid var(--wf-border);
   z-index: 1000;
   padding: 0;
   max-height: 80vh;
@@ -739,7 +739,7 @@ a {
 
 .wf-bottom-sheet__header {
   padding: 0 1.25rem 1rem;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -756,7 +756,7 @@ a {
   left: 50%;
   transform: translateX(-50%);
   padding: 0.75rem 1.25rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-text);
   color: var(--wf-white);
   font-size: 0.875rem;
@@ -794,7 +794,7 @@ a {
   width: 90%;
   max-width: 560px;
   background: var(--wf-white);
-  border: 3px dashed var(--wf-text);
+  border: 1px solid var(--wf-border);
   z-index: 1100;
 }
 
@@ -803,7 +803,7 @@ a {
   padding: 1rem 1.25rem;
   font-size: 1.125rem;
   border: none;
-  border-bottom: 2px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   background: transparent;
   font-family: inherit;
   outline: none;
@@ -816,7 +816,7 @@ a {
 
 .wf-spotlight__item {
   padding: 0.75rem 1.25rem;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -828,7 +828,7 @@ a {
 }
 
 .wf-upload-zone {
-  border: 3px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-surface);
   padding: 2.5rem 1.5rem;
   text-align: center;
@@ -853,7 +853,7 @@ a {
 
 .wf-img-placeholder {
   background: var(--wf-surface);
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -880,7 +880,7 @@ a {
   top: 0;
   bottom: 0;
   width: 2px;
-  border-left: 2px dashed var(--wf-border);
+  border-left: 1px solid var(--wf-border);
 }
 
 .wf-timeline__item {
@@ -895,7 +895,7 @@ a {
   top: 0.25rem;
   width: 0.75rem;
   height: 0.75rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   background: var(--wf-white);
 }
 
@@ -926,14 +926,14 @@ a {
   min-width: 260px;
   flex-shrink: 0;
   background: var(--wf-surface);
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
 }
 
 .wf-kanban__col-header {
   padding: 0.75rem 1rem;
   font-weight: 700;
   font-size: 0.875rem;
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -950,16 +950,16 @@ a {
 .wf-kanban__card {
   padding: 0.75rem;
   background: var(--wf-white);
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   font-size: 0.875rem;
 }
 
 .wf-accordion {
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
 }
 
 .wf-accordion__item {
-  border-bottom: 1px dashed var(--wf-border);
+  border-bottom: 1px solid var(--wf-border);
 }
 
 .wf-accordion__item:last-child {
@@ -1013,7 +1013,7 @@ a {
 .wf-skeleton {
   height: 1rem;
   background: var(--wf-border);
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
 }
 
 .wf-skeleton--text { height: 0.875rem; margin: 0.25rem 0; }
@@ -1038,7 +1038,7 @@ a {
   content: "";
   width: 1.5rem;
   height: 1.5rem;
-  border: 2px dashed var(--wf-border);
+  border: 1px solid var(--wf-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1063,26 +1063,30 @@ a {
 }
 
 /* --- ANNOTATIONS --- */
+/* data-note: invisible by default, shows as tooltip on hover */
 [data-note] {
   position: relative;
-  background: var(--wf-warning);
-  padding: 0.125rem 0.25rem;
-  border: 1px dashed var(--wf-text);
 }
 
 [data-note]::after {
   content: attr(data-note);
   position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  background: var(--wf-warning);
-  color: var(--wf-text);
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--wf-text);
+  color: var(--wf-white);
   padding: 0.25rem 0.5rem;
-  font-size: 0.625rem;
-  border: 1px solid var(--wf-text);
+  font-size: 0.6875rem;
   white-space: nowrap;
-  z-index: 10;
+  z-index: 1100;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+[data-note]:hover::after {
+  opacity: 1;
 }
 
 /* --- UTILITIES --- */
@@ -1202,7 +1206,7 @@ a {
     height: 100%;
     max-height: 100%;
     border: none;
-    border-bottom: 3px dashed var(--wf-text);
+    border-bottom: 1px solid var(--wf-border);
   }
 
   /* Spotlight: full-width on mobile */

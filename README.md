@@ -61,7 +61,7 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 ## Principes
 
 - **JSX/React + Vite** : composants React avec preview live (HMR). Pas de framework lourd, juste Vite + React.
-- **Philosophie wireframe** : 90% gris, 10% couleur primaire. Bordures pointillees, pas d'etats hover. Focus sur structure et flows.
+- **Philosophie wireframe** : 90% gris, 10% couleur primaire. Bordures fines et solides (gris clair), pas d'etats hover. Focus sur structure et flows.
 - **Composants partages** : sidebar, bottom nav, layouts sont des imports React — modification en un seul endroit, propagation automatique.
 - **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, bottom nav mobile. Modals/drawers plein ecran sur mobile. Classes : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-hide-desktop`, `wf-btn--block-mobile`.
 - **Auto-documente** : chaque ecran contient sa documentation (JSDoc, attributs `data-*`, `data-transition`)
@@ -106,7 +106,7 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 
 ## Composants CSS disponibles
 
-`src/styles/wireframe.css` fournit ~80 composants en style wireframe (bordures pointillees, gris) :
+`src/styles/wireframe.css` fournit ~80 composants en style wireframe (bordures fines solides, gris clair) :
 
 **Layout** : page, container, row, col, stack, grid, sidebar layout
 **Navigation** : navbar, sidebar nav, tabs, breadcrumbs, pagination, bottom nav (mobile)

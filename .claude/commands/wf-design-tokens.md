@@ -253,7 +253,7 @@ Remplacer les variables wireframe par les vraies valeurs du design system :
 
 #### Etape 2 : Transformer le style wireframe en style final
 
-- Remplacer les bordures `dashed` par des bordures `solid` (ou les supprimer selon le design)
+- Epaissir, colorer ou supprimer les bordures selon le design (elles sont deja solides 1px gris)
 - Ajouter des etats `hover`, `focus`, `active` sur les elements interactifs (boutons, liens, inputs)
 - Appliquer les vrais `border-radius` au lieu des coins carres ou minimaux du wireframe
 - Ajouter les `box-shadow` definies dans les tokens
