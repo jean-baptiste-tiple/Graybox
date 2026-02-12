@@ -23,16 +23,17 @@ export default function ScreenIndex({ navigate }) {
             </div>
           </div>
         ) : (
-          <div className="wf-grid--3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {screenNames.map(name => (
               <a key={name} href="#"
                 onClick={(e) => { e.preventDefault(); navigate(name); }}
                 className="wf-card"
-                style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', padding: '1rem 1.25rem' }}>
-                <h2 className="wf-h4" style={{ marginBottom: '0.25rem' }}>{name}</h2>
-                <div className="wf-text--sm wf-text--muted">
-                  src/screens/{name}.jsx
+                style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <h2 className="wf-h4" style={{ marginBottom: '0.125rem' }}>{name}</h2>
+                  <div className="wf-text--sm wf-text--muted">src/screens/{name}.jsx</div>
                 </div>
+                <span className="wf-text--muted" style={{ fontSize: '1.25rem' }}>&#8250;</span>
               </a>
             ))}
           </div>
