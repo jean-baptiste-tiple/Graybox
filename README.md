@@ -11,8 +11,8 @@ Template Claude Code pour concevoir des interfaces d'application sous forme de w
 | **Quoi** | Un template de projet Claude Code qui transforme une description d'app en wireframes JSX navigables + documentation technique |
 | **Pour qui** | Toi, quand tu veux concevoir l'interface d'une app avant de la developper |
 | **Stack** | React 19 + Vite 6 — preview live avec HMR |
-| **Output** | Wireframes JSX navigables + `app-spec.md` (index, flows, data model) + optionnel `design-tokens.md` (design system) |
-| **Philosophie** | 90% gris, 10% couleur primaire. Focus sur structure et flows, pas sur le style visuel. |
+| **Output** | Wireframes JSX navigables + `app-spec.md` (index, flows, data model) + `design-tokens.md` (design system complet, optionnel) |
+| **Philosophie** | 90% gris, 10% couleur primaire. Focus sur structure et flows, puis optionnellement upgrade vers du quasi high-fidelity |
 | **Continuite** | `project-state.md` garde la memoire entre les sessions, tu peux travailler sur plusieurs jours |
 
 ## Pour demarrer
@@ -41,7 +41,7 @@ npm run dev
 | 2 | `/wf-architect` | Tu valides/ajustes ses propositions | `architecture.md` |
 | 3 | `/wf-screen X` | Tu demandes chaque ecran | `src/screens/X.jsx` (wireframe navigable) |
 | 4 | `/wf-edit X` | Tu modifies un ecran existant | Mise a jour du composant (propagation automatique via React) |
-| 5 | `/wf-design-tokens` | **Optionnel** : tu definis le design system | `specs/design-tokens.md` |
+| 5 | `/wf-design-tokens` | Tu definis le design system (palette, typo, espacements) | `specs/design-tokens.md` + upgrade visuel des wireframes |
 | 6 | `/wf-review` | Tu lis ses observations | Rapport d'audit |
 | 7 | `/wf-export` | Tu recuperes les specs (mode wireframe ou full) | `specs/app-spec.md` |
 
@@ -51,10 +51,22 @@ Les phases sont un cap, pas un couloir. Tu peux sauter, revenir, melanger. L'age
 
 `specs/app-spec.md` est le point d'entree : vision, tokens wireframe (ou design system si mode full), inventaire des ecrans, flows Mermaid, modele de donnees infere, routes/API suggerees. Les fichiers `src/screens/*.jsx` sont la spec visuelle exacte — le LLM dev les lit directement pour reconstruire le design.
 
-**Mode wireframe** : Export rapide avec wireframes monochromes pour validation UX.
-**Mode full** : Export avec design system complet (prerequis : `/wf-design-tokens`).
+**Mode wireframe** (`/wf-export`) : Export rapide avec wireframes monochromes pour validation UX — structure, flows, layout.
+**Mode full** (`/wf-export --mode=full`) : Export enrichi avec design system complet — couleurs, typo, espacements, composants styles. Prerequis : `/wf-design-tokens`.
 
 Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
+
+## Design system (`/wf-design-tokens`)
+
+L'etape design system est optionnelle mais fortement recommandee pour un export complet couvrant l'UX **et** l'UI. Elle permet de :
+
+- **Definir la charte visuelle** : palette de couleurs, typographie, espacements, border-radius, ombres
+- **Upgrader les wireframes** : passer du rendu gris monochromatique a du quasi high-fidelity en appliquant les tokens au CSS
+- **Produire une spec UI exploitable** : `specs/design-tokens.md` donne au dev tout ce qu'il faut pour implementer le style exact, pas juste la structure
+
+Sans cette etape, l'export reste un wireframe UX (structure + flows). Avec, c'est une spec UX + UI complete que le dev peut reproduire pixel-perfect.
+
+La page **UI Kit** (`#UIKit`) sert de terrain d'iteration visuel : tous les ~170 composants y sont affiches, ce qui permet de voir l'impact des tokens en temps reel via le HMR.
 
 ---
 
@@ -66,8 +78,8 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 - **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, topbar burger + drawer mobile (par defaut). Bottom nav disponible en alternative. Modals/drawers plein ecran sur mobile. Classes : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-hide-desktop`, `wf-btn--block-mobile`.
 - **Auto-documente** : chaque ecran contient sa documentation (JSDoc, attributs `data-*`, `data-transition`)
 - **Persistant** : `project-state.md` garde la memoire entre les sessions
-- **2 modes d'export** : wireframe (rapide, structure uniquement) ou full (avec design system)
-- **Upgrade path** : wireframe gris → quasi high-fidelity via `/wf-design-tokens`
+- **2 modes d'export** : wireframe (UX : structure et flows) ou full (UX + UI : avec design system complet)
+- **Upgrade path** : wireframe gris → quasi high-fidelity via `/wf-design-tokens`. La page UI Kit permet d'iterer visuellement sur tous les composants en temps reel
 
 ## Structure du projet
 
