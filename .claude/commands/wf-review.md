@@ -1,6 +1,6 @@
 # Skill : Review
 
-Tu audites le projet wireframe pour detecter les incoherences, les oublis et les pistes d'amelioration. Tu presentes tes observations comme un collegue designer qui relit le travail, pas comme un robot qui coche des cases.
+Tu audites le projet wireframe JSX/React pour detecter les incoherences, les oublis et les pistes d'amelioration. Tu presentes tes observations comme un collegue designer qui relit le travail, pas comme un robot qui coche des cases.
 
 ## Ce que tu fais
 
@@ -10,31 +10,44 @@ Lis tous les fichiers existants :
 - `project-state.md`
 - `project-brief.md`
 - `architecture.md`
-- `assets/wireframe.css`
-- `screens/_partials/` (composants partages)
-- Tous les fichiers dans `screens/`
+- `src/styles/wireframe.css`
+- `src/components/*.jsx` (composants partages)
+- `src/screens/index.js` (screen registry)
+- Tous les fichiers dans `src/screens/*.jsx`
 
 ### 2. Analyser
 
 Concentre-toi sur ce qui pose vraiment probleme. Voici les axes d'analyse, par ordre de priorite :
 
 **Navigation & liens :**
-- Les `href` pointent vers des fichiers qui existent ?
-- Les `data-flow` sont coherents avec la realite des ecrans ?
+- Les appels `navigate("NomEcran")` et les props `to="NomEcran"` de `<WfLink>` referencent-ils des ecrans qui existent dans le screen registry (`src/screens/index.js`) ?
+- Les valeurs `data-flow` correspondent-elles aux noms d'ecrans enregistres ?
 - Y a-t-il des ecrans orphelins (rien n'y mene) ou des culs-de-sac ?
+- Y a-t-il des `<a href="screen.html">` ou `<a href="autre-ecran.html">` qui devraient utiliser `<WfLink>` ou `navigate()` a la place ? Les liens bruts vers des fichiers `.html` ne fonctionnent pas dans l'app React.
 
-**Coherence des composants partages :**
-- La navbar/sidebar est-elle identique sur tous les ecrans qui la partagent ?
-- Les partials dans `_partials/` correspondent-ils au markup reel dans les ecrans ?
-- Les `data-component` sont-ils nommes de maniere coherente ?
+**Screen registry :**
+- Chaque fichier `.jsx` dans `src/screens/` (sauf `index.js`) est-il exporte depuis `src/screens/index.js` ?
+- Y a-t-il des exports dans `index.js` qui pointent vers des fichiers inexistants ?
+
+**Syntaxe JSX :**
+- Les ecrans utilisent-ils `className` (pas `class`) ?
+- Les `<label>` utilisent-ils `htmlFor` (pas `for`) ?
+- Les attributs `style` sont-ils des objets JS (`style={{ color: 'red' }}`) et pas des strings (`style="color: red"`) ?
+- Les elements void (`<img>`, `<input>`, `<br>`, `<hr>`) sont-ils self-closing (`<img />`, `<input />`) ?
+- Les fragments sont-ils utilises correctement quand un composant retourne plusieurs elements racine ?
 
 **Classes CSS :**
-- Les classes `wf-*` utilisees dans les ecrans existent-elles dans `wireframe.css` ?
-- Y a-t-il du style inline ou des classes inventees qui devraient etre dans le CSS ?
+- Les classes `wf-*` utilisees dans les ecrans existent-elles dans `src/styles/wireframe.css` ?
+- Y a-t-il du style inline excessif ou des classes inventees qui devraient etre dans le CSS ?
 
-**Documentation des ecrans :**
-- Chaque ecran a son commentaire d'en-tete (SCREEN, DESCRIPTION, FLOW-IN, FLOW-OUT, PERSONA, DATA) ?
-- Les `data-note`, `data-flow`, `data-action` sont utilises sur les elements non evidents ?
+**Documentation des ecrans (JSDoc) :**
+- Chaque ecran a son bloc JSDoc en haut du fichier avec les tags `@screen`, `@description`, `@flow-in`, `@flow-out`, `@persona`, `@data` ?
+- Les `data-note`, `data-flow`, `data-action`, `data-transition` sont utilises sur les elements non evidents ?
+
+**Composants partages :**
+- Les composants dans `src/components/` sont-ils importes correctement dans les ecrans qui les utilisent ?
+- Les props passees aux composants sont-elles coherentes d'un ecran a l'autre ?
+- Pas besoin de verifier la coherence du markup entre ecrans : les composants importes se propagent automatiquement.
 
 **Brief vs realite :**
 - Ce qui a ete construit correspond a ce qui etait prevu ?
@@ -47,6 +60,7 @@ Concentre-toi sur ce qui pose vraiment probleme. Voici les axes d'analyse, par o
 **Accessibilite basique :**
 - Structure des headings coherente (h1 > h2 > h3, pas de saut) ?
 - Les elements interactifs ont des labels lisibles ?
+- Les `<input>` ont des `<label>` associes (via `htmlFor` et `id`) ?
 - Le contraste texte/fond est suffisant ?
 
 ### 3. Presenter les observations

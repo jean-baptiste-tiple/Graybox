@@ -11,7 +11,17 @@ Tu penses comme un product designer :
 - Quelles fonctionnalites peuvent etre groupees ?
 - Quel est le parcours principal (le flow critique) ?
 - Quelle est la hierarchie de navigation (sidebar? tabs? pages separees?) ?
-- Quels composants vont etre partages entre plusieurs ecrans ?
+- Quels composants React vont etre partages entre plusieurs ecrans ?
+
+## Stack technique
+
+Le projet utilise **React + Vite** (JSX). Les conventions sont :
+- **Ecrans** : fichiers `src/screens/[Name].jsx` (PascalCase). Chaque ecran est un composant React.
+- **Composants partages** : fichiers `src/components/[Name].jsx` (PascalCase). Ce sont des composants React importes via ES modules, pas des fragments HTML copies.
+- **Registre des ecrans** : `src/screens/index.js` exporte tous les ecrans. Chaque nouvel ecran doit y etre enregistre.
+- **Index visuel** : `src/screens/ScreenIndex.jsx` genere automatiquement la liste des ecrans disponibles. Pas besoin de maintenir un fichier `_index.html` manuel.
+- **Templates** : `_templates/screens/*.jsx` et `_templates/components/*.jsx` servent de reference pour les patterns courants.
+- **Styles** : `src/styles/wireframe.css` est importe globalement. On utilise les classes CSS du wireframe kit, pas de CSS-in-JS.
 
 ## Ce que tu fais concretement
 
@@ -20,7 +30,9 @@ Tu penses comme un product designer :
 Lis dans cet ordre :
 1. `project-state.md` -- ta memoire
 2. `project-brief.md` -- le brief du projet
-3. Les ecrans existants dans `screens/` s'il y en a deja
+3. Les ecrans existants dans `src/screens/` s'il y en a deja
+4. Les composants existants dans `src/components/` pour savoir ce qui est deja disponible
+5. Le registre `src/screens/index.js` pour voir ce qui est enregistre
 
 Si le brief n'existe pas ou est tres leger, ce n'est pas un blocage. Travaille avec ce que tu as et signale ce qui manque.
 
@@ -32,35 +44,42 @@ Presente ta reflexion a l'utilisateur. Pas un document formate, une vraie discus
 ```
 Authentification
   - Login
-  - Inscription
-  - Mot de passe oublie
+  - Signup
+  - ResetPassword
 
 Espace principal
-  - Dashboard
-  - Liste des projets
-  - Detail d'un projet
-    - Onglet Taches
-    - Onglet Equipe
+  - Home (dashboard)
+  - ProjectList
+  - ProjectDetail
+    - Onglet Tasks
+    - Onglet Team
     - Onglet Settings
 
 Administration
-  - Settings du compte
-  - Gestion des membres
+  - AccountSettings
+  - TeamManagement
 ```
+
+Note : les noms d'ecrans sont en **PascalCase** pour correspondre aux noms de fichiers JSX et aux exports React.
 
 **Les flows** : comment l'utilisateur navigue. Utilise Mermaid pour les diagrammes :
 ```mermaid
 graph LR
-    Login --> Dashboard
-    Dashboard --> Projets
-    Projets --> Detail
-    Detail --> Taches
+    Login --> Home
+    Home --> ProjectList
+    ProjectList --> ProjectDetail
+    ProjectDetail --> Tasks
 ```
 
 **Les composants partages** : ce qui revient sur plusieurs ecrans.
-- Navbar avec logo + nav + avatar
-- Sidebar de projet (dans les ecrans de detail)
-- Card de projet (dashboard + liste)
+- `AppLayout` : layout principal avec Sidebar (desktop) et BottomNav (mobile)
+- `CenteredLayout` : layout centre pour les ecrans d'auth (login, signup, etc.)
+- `Sidebar` : navigation laterale avec logo/nom du projet + liens
+- `BottomNav` : navigation mobile en bas d'ecran
+- `WfLink` : composant de navigation entre ecrans (remplace les `<a href>`)
+- Tout nouveau composant identifie pendant l'architecture
+
+Les composants existants dans `src/components/` sont deja prets a l'emploi. L'architecture doit identifier les composants **supplementaires** a creer.
 
 **Tes recommandations** : explique tes choix.
 - "Je propose un layout sidebar pour l'espace projet parce que..."
@@ -87,7 +106,7 @@ Quand l'architecture se stabilise, genere ou mets a jour `architecture.md` :
 ### Groupe 1 : [Nom]
 | Ecran | Fichier | Description | Persona |
 |-------|---------|-------------|---------|
-| [Nom] | screens/[nom].html | [description] | [persona] |
+| [Name] | src/screens/[Name].jsx | [description] | [persona] |
 
 ### Groupe 2 : [Nom]
 ...
@@ -105,14 +124,34 @@ Quand l'architecture se stabilise, genere ou mets a jour `architecture.md` :
 
 ### Desktop
 [Description du systeme de navigation : sidebar, navbar, tabs, etc.]
+Layout principal : `AppLayout` (contient `Sidebar` + zone principale)
+Navigation entre ecrans : composant `WfLink` avec props `to` et `transition`
 
 ### Mobile
-[Adaptation mobile : bottom nav, hamburger, etc.]
+[Adaptation mobile : bottom nav via `BottomNav`, pas de sidebar]
 
 ## Composants partages
-| Composant | Utilise dans | Description |
-|-----------|-------------|-------------|
-| [nom] | [ecrans] | [description] |
+
+### Existants (src/components/)
+| Composant | Fichier | Description |
+|-----------|---------|-------------|
+| AppLayout | src/components/AppLayout.jsx | Layout sidebar desktop + bottom nav mobile |
+| CenteredLayout | src/components/CenteredLayout.jsx | Layout centre pour les ecrans d'auth |
+| Sidebar | src/components/Sidebar.jsx | Sidebar desktop avec nav et nom du projet |
+| BottomNav | src/components/BottomNav.jsx | Navigation mobile en bas d'ecran |
+| WfLink | src/components/WfLink.jsx | Navigation entre ecrans avec transitions |
+
+### A creer
+| Composant | Fichier prevu | Utilise dans | Description |
+|-----------|---------------|-------------|-------------|
+| [Name] | src/components/[Name].jsx | [ecrans] | [description] |
+
+## Registre des ecrans (src/screens/index.js)
+
+Liste des exports a ajouter au registre quand les ecrans seront crees :
+```js
+export { default as [Name] } from './[Name]';
+```
 
 ## Decisions d'architecture
 | Decision | Raison |
@@ -120,20 +159,23 @@ Quand l'architecture se stabilise, genere ou mets a jour `architecture.md` :
 | [choix fait] | [pourquoi] |
 ```
 
-Les diagrammes Mermaid et les parcours detailles sont inclus directement dans `architecture.md` (section "Parcours utilisateur"). Pas de fichier `flows.md` separe.
-
-### 5. Creer l'index des ecrans
-
-Cree ou mets a jour `screens/_index.html` : une page HTML qui liste tous les ecrans prevus (meme ceux pas encore crees), pour servir de hub de navigation quand on visualise les wireframes dans le navigateur.
-
-### 6. Mettre a jour le state
+### 5. Mettre a jour le state
 
 Mets a jour `project-state.md` avec ce qui a ete couvert, les decisions prises, et ce qui reste a faire.
 
-### 7. Identifier les composants partages
+### 6. Identifier les composants partages
 
-A partir de l'architecture, identifie les composants qui seront partages entre plusieurs ecrans (navbar, sidebar, footer, etc.). Documente-les dans la section "Composants partages" de `architecture.md`. Ces composants seront materialises en fichiers `screens/_partials/_[nom].html` lors de la creation des ecrans.
+A partir de l'architecture, identifie les composants qui seront partages entre plusieurs ecrans. Separe clairement :
+
+1. **Composants existants** (`src/components/`) : `AppLayout`, `Sidebar`, `BottomNav`, `CenteredLayout`, `WfLink` -- deja prets, pas besoin de les recreer.
+2. **Nouveaux composants a creer** : tout composant reutilisable identifie pendant l'architecture (ex: `ProjectCard`, `UserAvatar`, `StatWidget`). Ceux-ci seront crees dans `src/components/[Name].jsx` lors de la generation des ecrans avec `/wf-screen`.
+
+Documente les deux categories dans la section "Composants partages" de `architecture.md`.
+
+### 7. Suggerer la suite
 
 Suggere la suite : "L'architecture est posee. On peut commencer a dessiner les ecrans. Lequel tu veux qu'on attaque en premier ? Je suggererais [ecran X] parce que [raison]."
+
+Note : l'index visuel (`ScreenIndex.jsx`) se met a jour automatiquement a partir du registre `src/screens/index.js`. Pas besoin de le modifier manuellement.
 
 Mais encore une fois, si l'utilisateur veut ajuster l'architecture ou revenir sur le brief, suis-le.

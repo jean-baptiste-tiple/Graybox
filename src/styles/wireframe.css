@@ -22,6 +22,9 @@
   /* Primary color (set by /wf-brief) */
   --wf-accent: #333333;
   --wf-accent-light: #555555;
+  --wf-accent-10: rgba(51, 51, 51, 0.1);
+  --wf-accent-20: rgba(51, 51, 51, 0.2);
+  --wf-accent-50: rgba(51, 51, 51, 0.5);
 
   /* Semantic colors (for feedback only) */
   --wf-danger: #dc2626;

@@ -2,9 +2,9 @@
 
 Tu compiles l'ensemble du projet wireframe en documentation structuree, prete a servir d'input pour du vrai developpement (methode BMAD ou autre).
 
-L'objectif : un LLM qui lit `specs/app-spec.md` puis les fichiers HTML des ecrans peut **reconstruire l'application fidelement** — le design visuel exact, les workflows, les transitions, les donnees.
+L'objectif : un LLM qui lit `specs/app-spec.md` puis les fichiers JSX des ecrans peut **reconstruire l'application fidelement** — le design visuel exact, les workflows, les transitions, les donnees.
 
-Le principe : **le HTML wireframe EST la spec visuelle**. Le fichier `app-spec.md` ne redecrit pas ce que le HTML montre deja. Il apporte ce que le HTML seul ne dit pas : la vision produit, les flows entre ecrans, le modele de donnees, les routes.
+Le principe : **le JSX wireframe EST la spec visuelle**. Le fichier `app-spec.md` ne redecrit pas ce que le JSX montre deja. Il apporte ce que le JSX seul ne dit pas : la vision produit, les flows entre ecrans, le modele de donnees, les routes.
 
 > **Idempotence** : cet export regenere `specs/app-spec.md` a chaque fois. Si le fichier existe deja, il est ecrase. L'export reflete toujours l'etat actuel du projet.
 
@@ -46,11 +46,11 @@ Le livrable est compose de fichiers qui existent deja + un fichier genere :
 |---------|------|---------------------|
 | `specs/app-spec.md` | Index, flows, data model, routes | **Oui** |
 | `specs/design-tokens.md` | Design system complet (mode full uniquement) | Non (genere par /wf-design-tokens) |
-| `screens/*.html` | Spec visuelle de chaque ecran | Non (deja existant) |
-| `screens/_partials/` | Composants partages | Non (deja existant) |
-| `assets/wireframe.css` | Wireframe CSS | Non (deja existant) |
+| `src/screens/*.jsx` | Spec visuelle de chaque ecran | Non (deja existant) |
+| `src/components/*.jsx` | Composants partages | Non (deja existant) |
+| `src/styles/wireframe.css` | Wireframe CSS | Non (deja existant) |
 
-Le LLM destinataire recoit le tout. Il commence par lire `app-spec.md` pour comprendre l'app, puis consulte les HTML individuellement.
+Le LLM destinataire recoit le tout. Il commence par lire `app-spec.md` pour comprendre l'app, puis consulte les JSX individuellement.
 
 ---
 
@@ -66,12 +66,30 @@ Si mode `full` demande mais `specs/design-tokens.md` n'existe pas, **avertir l'u
 
 Lis tous les fichiers :
 - `project-state.md`, `project-brief.md`, `architecture.md`
-- `assets/wireframe.css` (extraire les variables CSS du `:root`)
-- `screens/_partials/` (composants partages)
-- Tous les `screens/*.html`
+- `src/styles/wireframe.css` (extraire les variables CSS du `:root`)
+- `src/components/*.jsx` (composants partages)
+- `src/screens/index.js` (screen registry)
+- Tous les `src/screens/*.jsx`
 - **Si mode full** : `specs/design-tokens.md` (si existant)
 
-### 2. Generer `specs/app-spec.md`
+### 2. Extraire les metadonnees JSDoc
+
+Pour chaque fichier `src/screens/*.jsx`, extraire le bloc JSDoc en haut du fichier :
+
+```jsx
+/**
+ * @screen NomEcran
+ * @description Ce que fait cet ecran
+ * @flow-in depuis quels ecrans on arrive ici
+ * @flow-out vers quels ecrans on peut aller
+ * @persona qui utilise principalement cet ecran
+ * @data quelles donnees sont affichees (User, Project, etc.)
+ */
+```
+
+Ces metadonnees remplacent les commentaires HTML d'en-tete (`<!-- SCREEN: ... -->`) de l'ancienne version.
+
+### 3. Generer `specs/app-spec.md`
 
 Structure compacte. Chaque section est courte et va a l'essentiel.
 
@@ -80,13 +98,14 @@ Structure compacte. Chaque section est courte et va a l'essentiel.
 ```markdown
 # [Nom du projet] — App Spec (Wireframe)
 
-> Genere a partir des wireframes HTML/CSS.
+> Genere a partir des wireframes JSX/React + CSS.
 > Date : [date]
 > Mode : Wireframe (structure et flows uniquement)
 >
 > Ce fichier est le point d'entree. Pour le design visuel de chaque ecran,
-> lire le fichier HTML correspondant dans `screens/`.
-> Le wireframe CSS est dans `assets/wireframe.css`.
+> lire le fichier JSX correspondant dans `src/screens/`.
+> Le wireframe CSS est dans `src/styles/wireframe.css`.
+> Les composants partages sont dans `src/components/`.
 
 ## 1. Vision
 
@@ -122,17 +141,17 @@ Structure compacte. Chaque section est courte et va a l'essentiel.
 ### Inventaire
 | Ecran | Fichier | Persona | Description |
 |-------|---------|---------|-------------|
-| [Nom] | `screens/[nom].html` | [persona] | [1 ligne] |
+| [Nom] | `src/screens/[Nom].jsx` | [persona] | [1 ligne] |
 
 ### Composants partages
-| Composant | Fichier partial | Utilise dans |
-|-----------|----------------|--------------|
-| [Nom] | `screens/_partials/_[nom].html` | [ecrans] |
+| Composant | Fichier | Utilise dans |
+|-----------|---------|--------------|
+| [Nom] | `src/components/[Nom].jsx` | [ecrans] |
 
 ## 4. Flows
 
 ### Carte des ecrans
-[Diagramme Mermaid montrant TOUS les ecrans et leurs connexions, deduits des data-flow et data-transition]
+[Diagramme Mermaid montrant TOUS les ecrans et leurs connexions, deduits des data-flow, navigate() et WfLink to=]
 
 ### Parcours principal : [Nom]
 [Diagramme Mermaid du flow]
@@ -161,14 +180,31 @@ Structure compacte. Chaque section est courte et va a l'essentiel.
 
 ## 7. Guide de lecture des wireframes
 
-Pour interpreter les fichiers HTML :
+Les ecrans sont des composants React (JSX) dans `src/screens/`. Pour les interpreter :
+
+### Structure des fichiers
+- Chaque ecran est une fonction React qui recoit `{ navigate }` en props
+- Les metadonnees sont en JSDoc (`/** @screen, @description, @flow-in, @flow-out, @persona, @data */`)
+- Les composants partages (sidebar, bottom nav, layouts) sont dans `src/components/` et importes automatiquement
+- Le CSS wireframe est dans `src/styles/wireframe.css`, les classes `wf-*` sont les composants visuels
+
+### Attributs data-*
 - `data-component="nom"` : composant reutilisable
-- `data-flow="ecran.html"` : lien de navigation vers un autre ecran
+- `data-flow="NomEcran"` : lien de navigation vers un autre ecran
 - `data-action="nom"` : action declenchee (create, delete, submit, etc.)
 - `data-transition="type"` : transition visuelle (slide-left, fade, modal, etc.)
 - `data-note="texte"` : annotation du designer (fond jaune, pas a implementer)
-- Les classes CSS `wf-*` sont definies dans `assets/wireframe.css`
-- Les sections en commentaire HTML (`<!-- ... -->`) documentent des etats alternatifs (vide, erreur, loading)
+
+### Navigation
+- `<WfLink to="NomEcran" transition="slide-left">` : lien de navigation wireframe
+- `navigate("NomEcran")` : navigation programmatique via props
+- Le screen registry (`src/screens/index.js`) liste tous les ecrans disponibles
+
+### Syntaxe JSX vs HTML
+- `className` au lieu de `class`
+- `htmlFor` au lieu de `for`
+- `style={{ prop: 'value' }}` au lieu de `style="prop: value"`
+- Elements void self-closing : `<input />`, `<img />`, `<br />`
 
 ---
 
@@ -216,22 +252,23 @@ Meme structure que wireframe, avec ces differences :
 ### Regles de generation
 
 - **app-spec.md reste compact** : c'est un index, pas une copie des ecrans
-- **Pas de prose redondante** : ne pas re-decrire le contenu visible dans le HTML
-- **Le flow Mermaid est critique** : c'est la seule vue d'ensemble des connexions entre ecrans
+- **Pas de prose redondante** : ne pas re-decrire le contenu visible dans le JSX
+- **Le flow Mermaid est critique** : c'est la seule vue d'ensemble des connexions entre ecrans. Deduire les connexions des `navigate()`, `<WfLink to=...>` et `data-flow` dans les JSX.
 - **Le modele de donnees est infere** : deduit des donnees affichees dans les ecrans
-- **Le guide de lecture** : essentiel pour que le LLM destinataire sache interpreter les data-* attributs
+- **Le guide de lecture** : essentiel pour que le LLM destinataire sache interpreter le JSX et les data-* attributs
 - **Mode full** : extraire les infos du fichier design-tokens.md, ne pas les reinventer
+- **Chemins de fichiers** : toujours utiliser `src/screens/[Nom].jsx`, `src/components/[Nom].jsx`, `src/styles/wireframe.css`
 
-### 3. Mettre a jour le state
+### 4. Mettre a jour le state
 
 Mets a jour `project-state.md` avec le fichier genere et le mode utilise.
 
-### 4. Resume
+### 5. Resume
 
 Affiche un resume :
 - **Mode** : wireframe ou full
 - **Fichier genere** : `specs/app-spec.md`
-- **Fichiers existants references** : X ecrans, Y partials, 1 CSS (+ design-tokens.md si mode full)
+- **Fichiers existants references** : X ecrans, Y composants, 1 CSS (+ design-tokens.md si mode full)
 - **Statistiques** : nombre d'ecrans, composants partages, entites, routes
-- **Instruction pour le LLM destinataire** : "Commence par lire specs/app-spec.md, puis consulte les HTML individuellement"
+- **Instruction pour le LLM destinataire** : "Commence par lire specs/app-spec.md, puis consulte les JSX individuellement"
 - **Si mode wireframe** : Rappeler que l'utilisateur peut definir le design system avec `/wf-design-tokens` puis re-exporter avec `--mode=full`

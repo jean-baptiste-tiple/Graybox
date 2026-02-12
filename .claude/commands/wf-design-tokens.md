@@ -28,7 +28,7 @@ Tu dialogues avec l'utilisateur. Tu ne remplis pas un formulaire. Tu poses des q
 
 **Commence par comprendre** : quel style l'utilisateur vise ? Moderne, classique, minimaliste, ludique ?
 
-**Propose des presets** pour accelerer : "Design system minimaliste", "Design system coloré", "Design system corporate", "Design system custom".
+**Propose des presets** pour accelerer : "Design system minimaliste", "Design system colore", "Design system corporate", "Design system custom".
 
 **Guide sans imposer** : suggere des valeurs mais laisse l'utilisateur decider.
 
@@ -38,7 +38,7 @@ Tu dialogues avec l'utilisateur. Tu ne remplis pas un formulaire. Tu poses des q
 
 Lis :
 - `project-state.md`, `project-brief.md` pour comprendre l'app
-- `assets/wireframe.css` pour connaitre la couleur primaire actuelle
+- `src/styles/wireframe.css` pour connaitre la couleur primaire actuelle et les variables existantes
 - `architecture.md` pour savoir quels composants sont utilises
 
 ### 2. Discuter du style
@@ -53,7 +53,7 @@ Propose des **presets** :
 | Preset | Description | Palette | Typo | Espacement |
 |--------|-------------|---------|------|------------|
 | **Minimaliste** | Epure, beaucoup de blanc, typographie neutre | Monochrome + 1 accent | Inter ou System | Large |
-| **Coloré** | Palette riche, contrastes forts | 2-3 couleurs principales | Titres expressifs | Moyen |
+| **Colore** | Palette riche, contrastes forts | 2-3 couleurs principales | Titres expressifs | Moyen |
 | **Corporate** | Serieux, professionnel, lisible | Bleu/gris classique | Sans-serif classique | Serre |
 | **Custom** | Tu definis tout manuellement | A definir | A definir | A definir |
 
@@ -72,7 +72,7 @@ Outil suggere : [https://uicolors.app](https://uicolors.app) pour generer la sca
 
 #### Couleurs semantiques
 
-Reprendre les couleurs du wireframe.css (`--wf-danger`, `--wf-success`, etc.) et generer des scales completes.
+Reprendre les couleurs du `src/styles/wireframe.css` (`--wf-danger`, `--wf-success`, etc.) et generer des scales completes.
 
 #### Neutres (gris)
 
@@ -150,7 +150,7 @@ Structure :
 # Design Tokens — [Nom du projet]
 
 > Genere le [date]
-> Style : [Minimaliste / Coloré / Corporate / Custom]
+> Style : [Minimaliste / Colore / Corporate / Custom]
 
 ## 1. Palette de couleurs
 
@@ -235,15 +235,52 @@ Ces tokens peuvent etre implementes en CSS custom properties, SCSS variables, ou
 Pour exporter avec ce design system : `/wf-export --mode=full`
 ```
 
-### 9. Mettre a jour le state
+### 9. Upgrade wireframe vers haute-fidelite (optionnel)
 
-Ajouter dans `project-state.md` que le design system a ete defini, avec le style choisi.
+Apres avoir defini les design tokens, l'utilisateur peut optionnellement **appliquer le design system directement sur les wireframes** pour obtenir une preview quasi-haute-fidelite. Ce n'est pas obligatoire — les tokens peuvent rester une spec theorique pour le dev.
 
-### 10. Resume
+Si l'utilisateur le souhaite, voici le processus de "design upgrade" :
+
+#### Etape 1 : Mettre a jour `src/styles/wireframe.css`
+
+Remplacer les variables wireframe par les vraies valeurs du design system :
+
+- `--wf-accent` devient la couleur primaire-500 du design system
+- `--wf-danger`, `--wf-success`, `--wf-warning`, `--wf-info` prennent les couleurs semantiques definies
+- `--wf-text`, `--wf-text-muted`, `--wf-border`, `--wf-bg` prennent les neutres du design system
+- Ajouter les variables de typographie (`--wf-font-heading`, `--wf-font-body`, etc.)
+- Ajouter les variables de radius et shadow si definies
+
+#### Etape 2 : Transformer le style wireframe en style final
+
+- Remplacer les bordures `dashed` par des bordures `solid` (ou les supprimer selon le design)
+- Ajouter des etats `hover`, `focus`, `active` sur les elements interactifs (boutons, liens, inputs)
+- Appliquer les vrais `border-radius` au lieu des coins carres ou minimaux du wireframe
+- Ajouter les `box-shadow` definies dans les tokens
+- Appliquer les vraies typographies (font-family, font-weight, line-height)
+
+#### Etape 3 : Ajustements visuels
+
+- Affiner les couleurs de fond (backgrounds, cards, sections)
+- Ajuster les contrastes pour respecter les ratios WCAG definis dans les tokens
+- Harmoniser les espacements avec la scale definie
+
+#### Comment faire
+
+L'agent peut realiser cette transformation via `/wf-edit` applique directement sur `src/styles/wireframe.css`. L'utilisateur decrit le niveau de fidelite souhaite ("applique le design system", "rends-le plus fini visuellement") et l'agent modifie le CSS en consequence.
+
+**Important** : cette transformation est reversible. Le CSS wireframe d'origine peut etre restaure via git. Il est recommande de committer les wireframes monochromes avant d'appliquer le design upgrade.
+
+### 10. Mettre a jour le state
+
+Ajouter dans `project-state.md` que le design system a ete defini, avec le style choisi. Si le design upgrade a ete applique, le noter egalement.
+
+### 11. Resume
 
 Afficher :
 - Fichier genere : `specs/design-tokens.md`
 - Style choisi : [preset ou custom]
+- Design upgrade applique : oui/non
 - Prochaine etape : `/wf-export --mode=full` pour generer l'export complet
 
 ## Regles importantes
@@ -252,4 +289,5 @@ Afficher :
 - **Presets pour accelerer** : la plupart des projets peuvent partir d'un preset
 - **Accessibilite** : rappeler les ratios de contraste WCAG (4.5:1 pour texte normal, 3:1 pour texte large)
 - **Coherence** : les choix doivent etre coherents avec le brief et l'architecture
-- **Pas de code CSS** : ce skill produit de la documentation, pas du code
+- **Pas de code CSS** : ce skill produit de la documentation, pas du code — sauf si l'utilisateur demande le design upgrade (etape 9)
+- **CSS path** : le fichier CSS est `src/styles/wireframe.css` (pas `assets/wireframe.css`)
