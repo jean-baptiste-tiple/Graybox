@@ -28,12 +28,10 @@ export default function ScreenIndex({ navigate }) {
               <a key={name} href="#"
                 onClick={(e) => { e.preventDefault(); navigate(name); }}
                 className="wf-card"
-                style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-                <div className="wf-card__body">
-                  <h2 className="wf-h4">{name}</h2>
-                  <div className="wf-text--sm wf-text--muted wf-mt-1">
-                    src/screens/{name}.jsx
-                  </div>
+                style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', padding: '1rem 1.25rem' }}>
+                <h2 className="wf-h4" style={{ marginBottom: '0.25rem' }}>{name}</h2>
+                <div className="wf-text--sm wf-text--muted">
+                  src/screens/{name}.jsx
                 </div>
               </a>
             ))}
