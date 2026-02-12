@@ -64,6 +64,8 @@ export default function UIKit({ navigate }) {
   const [toggleOn, setToggleOn] = useState(false);
   const [chipActive, setChipActive] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchSelectOpen, setSearchSelectOpen] = useState(false);
+  const [multiSearchOpen, setMultiSearchOpen] = useState(false);
 
   return (
     <div className="wf-page" style={{ background: 'var(--wf-bg)' }}>
@@ -175,14 +177,17 @@ export default function UIKit({ navigate }) {
               <div className="wf-form-group">
                 <label className="wf-label">Select searchable</label>
                 <div className="wf-select-search">
-                  <input className="wf-select-search__input" placeholder="Rechercher un pays..." defaultValue="France" />
-                  <div className="wf-select-search__dropdown">
-                    <div className="wf-select-search__option wf-select-search__option--selected">France</div>
-                    <div className="wf-select-search__option">Allemagne</div>
-                    <div className="wf-select-search__option">Espagne</div>
-                    <div className="wf-select-search__option">Italie</div>
-                    <div className="wf-select-search__option">Royaume-Uni</div>
-                  </div>
+                  <input className="wf-select-search__input" placeholder="Rechercher un pays..." defaultValue="France"
+                    onFocus={() => setSearchSelectOpen(true)} />
+                  {searchSelectOpen && (
+                    <div className="wf-select-search__dropdown">
+                      <div className="wf-select-search__option wf-select-search__option--selected" onClick={() => setSearchSelectOpen(false)}>France</div>
+                      <div className="wf-select-search__option" onClick={() => setSearchSelectOpen(false)}>Allemagne</div>
+                      <div className="wf-select-search__option" onClick={() => setSearchSelectOpen(false)}>Espagne</div>
+                      <div className="wf-select-search__option" onClick={() => setSearchSelectOpen(false)}>Italie</div>
+                      <div className="wf-select-search__option" onClick={() => setSearchSelectOpen(false)}>Royaume-Uni</div>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="wf-form-group">
@@ -196,16 +201,19 @@ export default function UIKit({ navigate }) {
               <div className="wf-form-group">
                 <label className="wf-label">Multi-select searchable</label>
                 <div className="wf-select-search">
-                  <div className="wf-select-multi" style={{ borderRadius: 'var(--wf-radius) var(--wf-radius) 0 0' }}>
+                  <div className="wf-select-multi" style={multiSearchOpen ? { borderRadius: 'var(--wf-radius) var(--wf-radius) 0 0' } : undefined}>
                     <span className="wf-select-multi__tag">Design <span className="wf-select-multi__tag-remove">&times;</span></span>
                     <span className="wf-select-multi__tag">Frontend <span className="wf-select-multi__tag-remove">&times;</span></span>
-                    <input style={{ border: 'none', outline: 'none', flex: 1, minWidth: '80px', fontSize: '0.875rem', padding: '0.2rem 0.375rem', fontFamily: 'inherit' }} placeholder="Ajouter..." />
+                    <input style={{ border: 'none', outline: 'none', flex: 1, minWidth: '80px', fontSize: '0.875rem', padding: '0.2rem 0.375rem', fontFamily: 'inherit' }} placeholder="Ajouter..."
+                      onFocus={() => setMultiSearchOpen(true)} />
                   </div>
-                  <div className="wf-select-search__dropdown" style={{ marginTop: 0, borderTop: 'none', borderRadius: '0 0 var(--wf-radius) var(--wf-radius)' }}>
-                    <div className="wf-select-search__option">Backend</div>
-                    <div className="wf-select-search__option">DevOps</div>
-                    <div className="wf-select-search__option">QA</div>
-                  </div>
+                  {multiSearchOpen && (
+                    <div className="wf-select-search__dropdown" style={{ marginTop: 0, borderTop: 'none', borderRadius: '0 0 var(--wf-radius) var(--wf-radius)' }}>
+                      <div className="wf-select-search__option" onClick={() => setMultiSearchOpen(false)}>Backend</div>
+                      <div className="wf-select-search__option" onClick={() => setMultiSearchOpen(false)}>DevOps</div>
+                      <div className="wf-select-search__option" onClick={() => setMultiSearchOpen(false)}>QA</div>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="wf-row" style={{ gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
