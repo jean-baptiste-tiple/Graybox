@@ -5,11 +5,17 @@
  */
 import WfLink from './WfLink';
 
-export default function Sidebar({ navigate, currentScreen, projectName = '[Projet]' }) {
+export default function Sidebar({ navigate, currentScreen, projectName = '[Projet]', logoUrl }) {
   return (
     <aside className="wf-sidebar wf-hide-mobile" data-component="sidebar-app">
       {/* Logo */}
-      <div className="wf-h3 wf-mb-3" data-component="app-logo">{projectName}</div>
+      <div className="wf-mb-3" data-component="app-logo">
+        {logoUrl ? (
+          <img src={logoUrl} alt={projectName} style={{ maxHeight: '2rem', maxWidth: '100%' }} />
+        ) : (
+          <div className="wf-h3">{projectName}</div>
+        )}
+      </div>
 
       {/* Nav principale */}
       <nav className="wf-sidenav">

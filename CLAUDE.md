@@ -45,7 +45,7 @@ Ce fichier est ecrit en prose, pas en checklist rigide. Il doit etre lisible par
 - **Philosophie wireframe** : **90% gris, 10% couleur primaire**. Bordures pointillees (dashed), pas d'etats hover/focus. L'objectif est de valider la structure et les flows, pas le style visuel.
 - **Couleur primaire** : Choisie par l'utilisateur des le brief, stockee dans `--wf-accent` dans `src/styles/wireframe.css`. Utilisee avec parcimonie (boutons primaires, liens importants). Des variantes alpha (`--wf-accent-10`, `--wf-accent-20`, `--wf-accent-50`) sont aussi disponibles pour des teintes subtiles.
 - **Couleurs semantiques** : Les variables `--wf-danger`, `--wf-success`, `--wf-warning`, `--wf-info` sont disponibles pour les feedbacks (alerts, badges). Toujours les utiliser.
-- **Responsive minimal** : Chaque ecran fonctionne sur mobile (< 480px avec bottom nav) et desktop (sidebar). Pas de breakpoint intermediaire complexe.
+- **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, bottom nav mobile. Modals et drawers plein ecran sur mobile. Classes utilitaires : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-show-desktop`, `wf-hide-desktop`, `wf-btn--block-mobile`.
 - **Etats documentes** : Les etats alternatifs (vide, erreur, loading) sont documentes en commentaires JSX (`{/* ... */}`), pas implementes visuellement.
 - **Accessibilite** : Utiliser des headings hierarchiques (h1 > h2 > h3), des labels sur les inputs avec `htmlFor`.
 
@@ -148,7 +148,7 @@ L'index visuel (`ScreenIndex.jsx`) se genere automatiquement a partir de ce regi
 │   ├── main.jsx               # Bootstrap React
 │   ├── App.jsx                # Screen dispatcher + routing
 │   ├── styles/
-│   │   └── wireframe.css      # Composants CSS (~70 composants, style wireframe)
+│   │   └── wireframe.css      # Composants CSS (~80 composants, style wireframe)
 │   ├── components/            # Composants React partages
 │   │   ├── WfLink.jsx         # Navigation helper
 │   │   ├── AppLayout.jsx      # Layout sidebar + bottom nav

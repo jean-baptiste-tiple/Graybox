@@ -5,7 +5,7 @@
    Philosophy: 90% gray, 10% primary color. Dashed borders. No hover states.
    Focus on structure and flows, not visual polish.
 
-   ~70 components available, all in wireframe style.
+   ~80 components available, all in wireframe style.
    ========================================================================== */
 
 /* --- VARIABLES --- */
@@ -717,6 +717,285 @@ a {
   border-bottom: none;
 }
 
+.wf-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--wf-white);
+  border-top: 3px dashed var(--wf-text);
+  z-index: 1000;
+  padding: 0;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.wf-bottom-sheet__handle {
+  width: 2.5rem;
+  height: 0.25rem;
+  background: var(--wf-border);
+  margin: 0.75rem auto;
+}
+
+.wf-bottom-sheet__header {
+  padding: 0 1.25rem 1rem;
+  border-bottom: 1px dashed var(--wf-border);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wf-bottom-sheet__body {
+  padding: 1.25rem;
+}
+
+.wf-snackbar {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.25rem;
+  border: 2px dashed var(--wf-border);
+  background: var(--wf-text);
+  color: var(--wf-white);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 300px;
+  z-index: 1000;
+}
+
+.wf-snackbar__action {
+  font-weight: 700;
+  color: var(--wf-white);
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.wf-tooltip {
+  position: absolute;
+  padding: 0.375rem 0.625rem;
+  background: var(--wf-text);
+  color: var(--wf-white);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1100;
+  border: 1px solid var(--wf-text);
+}
+
+.wf-spotlight {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 560px;
+  background: var(--wf-white);
+  border: 3px dashed var(--wf-text);
+  z-index: 1100;
+}
+
+.wf-spotlight__input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1.125rem;
+  border: none;
+  border-bottom: 2px dashed var(--wf-border);
+  background: transparent;
+  font-family: inherit;
+  outline: none;
+}
+
+.wf-spotlight__results {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.wf-spotlight__item {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px dashed var(--wf-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.wf-spotlight__item:last-child {
+  border-bottom: none;
+}
+
+.wf-upload-zone {
+  border: 3px dashed var(--wf-border);
+  background: var(--wf-surface);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--wf-text-muted);
+}
+
+.wf-upload-zone__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.4;
+}
+
+.wf-upload-zone__text {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.wf-upload-zone__hint {
+  font-size: 0.75rem;
+  color: var(--wf-text-light);
+}
+
+.wf-img-placeholder {
+  background: var(--wf-surface);
+  border: 2px dashed var(--wf-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wf-text-light);
+  font-size: 2rem;
+  min-height: 120px;
+  aspect-ratio: 16 / 9;
+}
+
+.wf-img-placeholder--square { aspect-ratio: 1 / 1; }
+.wf-img-placeholder--portrait { aspect-ratio: 3 / 4; }
+.wf-img-placeholder--sm { min-height: 60px; font-size: 1.25rem; }
+.wf-img-placeholder--lg { min-height: 200px; font-size: 3rem; }
+
+.wf-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.wf-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-left: 2px dashed var(--wf-border);
+}
+
+.wf-timeline__item {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.wf-timeline__item::before {
+  content: "";
+  position: absolute;
+  left: -1.75rem;
+  top: 0.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px dashed var(--wf-border);
+  background: var(--wf-white);
+}
+
+.wf-timeline__item--active::before {
+  border-color: var(--wf-accent);
+  border-style: solid;
+  background: var(--wf-accent);
+}
+
+.wf-timeline__date {
+  font-size: 0.75rem;
+  color: var(--wf-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.wf-timeline__content {
+  font-size: 0.875rem;
+}
+
+.wf-kanban {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.wf-kanban__col {
+  min-width: 260px;
+  flex-shrink: 0;
+  background: var(--wf-surface);
+  border: 2px dashed var(--wf-border);
+}
+
+.wf-kanban__col-header {
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-bottom: 1px dashed var(--wf-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wf-kanban__col-body {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 100px;
+}
+
+.wf-kanban__card {
+  padding: 0.75rem;
+  background: var(--wf-white);
+  border: 2px dashed var(--wf-border);
+  font-size: 0.875rem;
+}
+
+.wf-accordion {
+  border: 2px dashed var(--wf-border);
+}
+
+.wf-accordion__item {
+  border-bottom: 1px dashed var(--wf-border);
+}
+
+.wf-accordion__item:last-child {
+  border-bottom: none;
+}
+
+.wf-accordion__header {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--wf-white);
+}
+
+.wf-accordion__header::after {
+  content: "▼";
+  font-size: 0.625rem;
+  color: var(--wf-text-muted);
+}
+
+.wf-accordion__body {
+  padding: 0 1rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* --- OVERLAYS BACKDROP --- */
+.wf-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
 /* --- PROGRESS --- */
 .wf-progress {
   height: 0.5rem;
@@ -840,38 +1119,127 @@ a {
 .wf-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* --- RESPONSIVE --- */
+
+/* Tablet: <= 768px */
 @media (max-width: 768px) {
   body { font-size: 14px; }
 
-  .wf-sidebar {
-    display: none;
-  }
+  /* Layout: sidebar → bottomnav */
+  .wf-sidebar { display: none; }
+  .wf-bottomnav { display: block; }
+  .wf-main { padding-bottom: 5rem; }
 
-  .wf-bottomnav {
-    display: block;
-  }
-
-  .wf-main {
-    padding-bottom: 5rem;
-  }
-
+  /* Grids stack */
   .wf-grid--2,
   .wf-grid--3,
   .wf-grid--4 {
     grid-template-columns: 1fr;
   }
 
-  .wf-row {
-    flex-direction: column;
+  /* Rows stack */
+  .wf-row { flex-direction: column; }
+  .wf-row--no-stack { flex-direction: row; }
+
+  /* Modal: full-width on tablet */
+  .wf-modal {
+    width: 95%;
+    max-width: none;
   }
 
-  .wf-hide-mobile {
-    display: none !important;
+  /* Drawer: wider on tablet */
+  .wf-drawer {
+    width: 100%;
+    max-width: none;
   }
+
+  /* Snackbar: full-width */
+  .wf-snackbar {
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    min-width: 0;
+  }
+
+  /* Kanban: scroll horizontal */
+  .wf-kanban__col {
+    min-width: 220px;
+  }
+
+  /* Steps: stack vertically */
+  .wf-steps {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Visibility helpers */
+  .wf-hide-mobile { display: none !important; }
+  .wf-hide-tablet { display: none !important; }
+  .wf-show-desktop { display: none !important; }
 }
 
+/* Show only on mobile/tablet */
+.wf-show-mobile { display: none; }
+.wf-show-tablet { display: none; }
+.wf-hide-desktop { }
+
+@media (max-width: 768px) {
+  .wf-show-mobile { display: block !important; }
+  .wf-show-tablet { display: block !important; }
+  .wf-hide-desktop { display: none !important; }
+}
+
+/* Mobile: <= 480px */
 @media (max-width: 480px) {
-  .wf-container {
-    padding: 1rem;
+  .wf-container { padding: 1rem; }
+
+  /* Modal: full-screen on mobile */
+  .wf-modal {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border: none;
+    border-bottom: 3px dashed var(--wf-text);
+  }
+
+  /* Spotlight: full-width on mobile */
+  .wf-spotlight {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Tabs: scroll horizontal on small screens */
+  .wf-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .wf-tabs__tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Grid-2 keeps 2 cols on mobile for compact items */
+  .wf-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Table: horizontal scroll */
+  .wf-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* Button full width on mobile */
+  .wf-btn--block-mobile {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 }

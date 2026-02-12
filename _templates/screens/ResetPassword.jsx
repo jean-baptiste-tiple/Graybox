@@ -9,12 +9,16 @@
 import CenteredLayout from '../components/CenteredLayout';
 import WfLink from '../components/WfLink';
 
-export default function ResetPassword({ navigate }) {
+export default function ResetPassword({ navigate, projectName = '[Projet]', logoUrl }) {
   return (
     <CenteredLayout>
       {/* Logo / Nom de l'app */}
-      <div className="wf-text--center wf-mb-3">
-        <div className="wf-h2" data-component="app-logo">[Nom du Projet]</div>
+      <div className="wf-text--center wf-mb-3" data-component="app-logo">
+        {logoUrl ? (
+          <img src={logoUrl} alt={projectName} style={{ maxHeight: '3rem', margin: '0 auto' }} />
+        ) : (
+          <div className="wf-h2">{projectName}</div>
+        )}
       </div>
 
       {/* Etat par defaut : formulaire */}

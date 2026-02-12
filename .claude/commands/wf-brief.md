@@ -73,13 +73,31 @@ Correspondances suggerees :
   --wf-accent-50: rgba(37, 99, 235, 0.5);
 ```
 
-#### Nom du projet / Logo
+#### Nom du projet et logo
 
-Demande le nom du projet (et optionnellement une URL de logo). Le nom du projet sera utilise comme prop `projectName` dans les composants `Sidebar` et `AppLayout` (fichiers `src/components/Sidebar.jsx` et `src/components/AppLayout.jsx`).
+Demande **explicitement** ces deux informations :
 
-Note le nom dans le brief. Pas besoin de modifier du code a ce stade -- le nom sera injecte quand les ecrans seront crees avec `/wf-screen`. Mais documente-le clairement dans `project-brief.md` et `project-state.md` pour que `/wf-screen` et `/wf-architect` le retrouvent.
+1. **Le nom du projet** : utilise comme prop `projectName` dans Sidebar, AppLayout et les ecrans auth (Login, Signup, etc.)
+2. **Le logo** (optionnel mais recommande) : une URL d'image ou un emoji/texte. Utilise comme prop `logoUrl` dans Sidebar et les ecrans auth.
 
-Si l'utilisateur fournit une URL de logo, note-la aussi. Elle pourra etre utilisee dans le composant Sidebar a la place du texte.
+**Pose la question clairement** : "Quel est le nom de ton projet ? Et tu as un logo ? (une URL d'image, ou un emoji — sinon on met juste le nom)"
+
+Note le nom et le logo dans le brief et le state. Ils seront injectes automatiquement quand les ecrans seront crees avec `/wf-screen` :
+- Sidebar : `<Sidebar projectName="MonApp" logoUrl="/logo.png" />`
+- Ecrans auth : le logo s'affiche au-dessus du formulaire
+- Si pas de logo : le nom du projet s'affiche en texte (comportement par defaut)
+
+#### Cible plateforme
+
+Demande pour quel usage principal l'app sera concue :
+
+| Cible | Ce que ca implique pour les wireframes |
+|-------|---------------------------------------|
+| **Desktop-first** | Layout sidebar, tableaux larges, navigation horizontale. Mobile = version simplifiee. |
+| **Mobile-first** | Bottom nav, cards empilees, bottom sheets, gestes swipe. Desktop = version elargie. |
+| **Les deux** (defaut) | Wireframes conçus pour les deux. Sidebar desktop + bottom nav mobile. Le plus courant. |
+
+Ce choix influence la facon dont `/wf-screen` et `/wf-architect` proposeront les layouts. Note-le dans le brief et le state.
 
 ### 4. Produire le brief
 
@@ -113,6 +131,7 @@ Quand tu as assez d'elements (meme partiels), genere ou mets a jour `project-bri
 - Nom du projet : [nom]
 - Logo : [URL ou "texte seul"]
 - Couleur primaire : [nom + hex, ex: Bleu #2563eb]
+- Cible : [Desktop-first / Mobile-first / Les deux]
 
 ## Ce qui est hors scope (V1)
 - [Element explicitement exclu]

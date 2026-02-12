@@ -63,7 +63,7 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 - **JSX/React + Vite** : composants React avec preview live (HMR). Pas de framework lourd, juste Vite + React.
 - **Philosophie wireframe** : 90% gris, 10% couleur primaire. Bordures pointillees, pas d'etats hover. Focus sur structure et flows.
 - **Composants partages** : sidebar, bottom nav, layouts sont des imports React — modification en un seul endroit, propagation automatique.
-- **Responsive minimal** : mobile (bottom nav) et desktop (sidebar). Pas de breakpoints intermediaires complexes.
+- **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, bottom nav mobile. Modals/drawers plein ecran sur mobile. Classes : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-hide-desktop`, `wf-btn--block-mobile`.
 - **Auto-documente** : chaque ecran contient sa documentation (JSDoc, attributs `data-*`, `data-transition`)
 - **Persistant** : `project-state.md` garde la memoire entre les sessions
 - **2 modes d'export** : wireframe (rapide, structure uniquement) ou full (avec design system)
@@ -106,7 +106,7 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 
 ## Composants CSS disponibles
 
-`src/styles/wireframe.css` fournit ~70 composants en style wireframe (bordures pointillees, gris) :
+`src/styles/wireframe.css` fournit ~80 composants en style wireframe (bordures pointillees, gris) :
 
 **Layout** : page, container, row, col, stack, grid, sidebar layout
 **Navigation** : navbar, sidebar nav, tabs, breadcrumbs, pagination, bottom nav (mobile)
@@ -119,7 +119,8 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 **Progression** : progress bar, skeleton loader, steps
 **Contenu** : empty state (avec titre, texte, CTA), placeholder, image placeholder, timeline, kanban, accordion
 
-Style minimal wireframe : pas d'etats hover/focus, responsive basique (mobile + desktop).
+**Responsive** : 3 breakpoints (mobile, tablette, desktop). Modals/drawers plein ecran sur mobile. Classes utilitaires responsive.
+Style minimal wireframe : pas d'etats hover/focus.
 
 ## Templates de demarrage
 
