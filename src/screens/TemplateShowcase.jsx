@@ -18,7 +18,7 @@ function WfLinkDemo({ to, transition = 'none', navigate, children, className, ..
 
 function SidebarDemo({ navigate, currentScreen, projectName = 'MonApp', logoUrl }) {
   return (
-    <aside className="wf-sidebar" style={{ display: 'block', position: 'relative', borderRight: '2px dashed var(--wf-border)' }} data-component="sidebar-app">
+    <aside className="wf-sidebar" style={{ display: 'block', position: 'relative', borderRight: '1px solid var(--wf-border)' }} data-component="sidebar-app">
       <div className="wf-mb-3" data-component="app-logo">
         {logoUrl ? (
           <img src={logoUrl} alt={projectName} style={{ maxHeight: '2rem', maxWidth: '100%' }} />
@@ -58,115 +58,128 @@ function BottomNavDemo() {
   );
 }
 
+// --- Auth split layout helper ---
+function AuthSplitLayout({ children }) {
+  return (
+    <div style={{ display: 'flex', minHeight: '600px' }}>
+      <div style={{ flex: 1, background: 'var(--wf-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid var(--wf-border)' }}>
+        <div style={{ textAlign: 'center', color: 'var(--wf-text-light)', padding: '2rem' }}>
+          <div style={{ width: '200px', height: '200px', background: 'var(--wf-border)', borderRadius: 'var(--wf-radius-lg)', margin: '0 auto 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', opacity: 0.5 }}>
+            &#128247;
+          </div>
+          <div className="wf-text--muted" style={{ fontSize: '0.875rem' }}>Image de marque ou illustration</div>
+        </div>
+      </div>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--wf-bg)', padding: '2rem' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 // --- Screen Templates ---
 
 function LoginDemo({ navigate }) {
   return (
-    <div className="wf-flex-center" style={{ minHeight: '600px', background: 'var(--wf-bg)' }}>
-      <div className="wf-container--narrow" style={{ width: '100%', padding: '1.5rem' }}>
-        <div className="wf-text--center wf-mb-3" data-component="app-logo">
+    <AuthSplitLayout>
+      <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div className="wf-mb-3" data-component="app-logo">
           <div className="wf-h2">MonApp</div>
           <p className="wf-text--muted wf-mt-1">Connectez-vous a votre compte</p>
         </div>
-        <div className="wf-card" style={{ padding: '1.5rem' }}>
-          <form className="wf-stack--lg" onSubmit={e => e.preventDefault()}>
-            <div className="wf-form-group">
-              <label className="wf-label" htmlFor="demo-email">Adresse email</label>
-              <input className="wf-input" type="email" id="demo-email" placeholder="nom@exemple.com" />
+        <form className="wf-stack--lg" onSubmit={e => e.preventDefault()}>
+          <div className="wf-form-group">
+            <label className="wf-label" htmlFor="demo-email">Adresse email</label>
+            <input className="wf-input" type="email" id="demo-email" placeholder="nom@exemple.com" />
+          </div>
+          <div className="wf-form-group">
+            <label className="wf-label" htmlFor="demo-pass">Mot de passe</label>
+            <input className="wf-input" type="password" id="demo-pass" placeholder="••••••••" />
+          </div>
+          <div className="wf-row wf-row--center wf-row--between" style={{ flexDirection: 'row' }}>
+            <div className="wf-check">
+              <input type="checkbox" id="demo-remember" />
+              <label htmlFor="demo-remember">Se souvenir de moi</label>
             </div>
-            <div className="wf-form-group">
-              <label className="wf-label" htmlFor="demo-pass">Mot de passe</label>
-              <input className="wf-input" type="password" id="demo-pass" placeholder="••••••••" />
-            </div>
-            <div className="wf-row wf-row--center wf-row--between" style={{ flexDirection: 'row' }}>
-              <div className="wf-check">
-                <input type="checkbox" id="demo-remember" />
-                <label htmlFor="demo-remember">Se souvenir de moi</label>
-              </div>
-              <a href="#" className="wf-text--sm" onClick={e => e.preventDefault()}>Mot de passe oublie ?</a>
-            </div>
-            <button className="wf-btn wf-btn--primary wf-w-full" data-action="login">Se connecter</button>
-          </form>
-        </div>
-        <p className="wf-text--center wf-text--sm wf-text--muted wf-mt-2">
+            <a href="#" className="wf-text--sm" onClick={e => e.preventDefault()}>Mot de passe oublie ?</a>
+          </div>
+          <button className="wf-btn wf-btn--primary wf-w-full" data-action="login">Se connecter</button>
+        </form>
+        <p className="wf-text--sm wf-text--muted wf-mt-3">
           Pas encore de compte ? <a href="#" onClick={e => e.preventDefault()}>Creer un compte</a>
         </p>
       </div>
-    </div>
+    </AuthSplitLayout>
   );
 }
 
 function SignupDemo() {
   return (
-    <div className="wf-flex-center" style={{ minHeight: '600px', background: 'var(--wf-bg)' }}>
-      <div className="wf-container--narrow" style={{ width: '100%', padding: '1.5rem' }}>
-        <div className="wf-text--center wf-mb-3" data-component="app-logo">
+    <AuthSplitLayout>
+      <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div className="wf-mb-3" data-component="app-logo">
           <div className="wf-h2">MonApp</div>
           <p className="wf-text--muted wf-mt-1">Creez votre compte</p>
         </div>
-        <div className="wf-card" style={{ padding: '1.5rem' }}>
-          <form className="wf-stack--lg" onSubmit={e => e.preventDefault()}>
-            <div className="wf-row" style={{ flexDirection: 'row' }}>
-              <div className="wf-form-group wf-col">
-                <label className="wf-label" htmlFor="demo-prenom">Prenom</label>
-                <input className="wf-input" id="demo-prenom" placeholder="Marie" />
-              </div>
-              <div className="wf-form-group wf-col">
-                <label className="wf-label" htmlFor="demo-nom">Nom</label>
-                <input className="wf-input" id="demo-nom" placeholder="Dupont" />
-              </div>
+        <form className="wf-stack--lg" onSubmit={e => e.preventDefault()}>
+          <div className="wf-row" style={{ flexDirection: 'row' }}>
+            <div className="wf-form-group wf-col">
+              <label className="wf-label" htmlFor="demo-prenom">Prenom</label>
+              <input className="wf-input" id="demo-prenom" placeholder="Marie" />
             </div>
-            <div className="wf-form-group">
-              <label className="wf-label" htmlFor="demo-semail">Adresse email</label>
-              <input className="wf-input" type="email" id="demo-semail" placeholder="nom@exemple.com" />
+            <div className="wf-form-group wf-col">
+              <label className="wf-label" htmlFor="demo-nom">Nom</label>
+              <input className="wf-input" id="demo-nom" placeholder="Dupont" />
             </div>
-            <div className="wf-form-group">
-              <label className="wf-label" htmlFor="demo-spass">Mot de passe</label>
-              <input className="wf-input" type="password" id="demo-spass" placeholder="••••••••" />
-              <span className="wf-help">Minimum 8 caracteres, 1 majuscule, 1 chiffre</span>
-            </div>
-            <div className="wf-check">
-              <input type="checkbox" id="demo-terms" />
-              <label htmlFor="demo-terms">J'accepte les conditions d'utilisation</label>
-            </div>
-            <button className="wf-btn wf-btn--primary wf-w-full" data-action="signup">Creer mon compte</button>
-          </form>
-        </div>
-        <p className="wf-text--center wf-text--sm wf-text--muted wf-mt-2">
+          </div>
+          <div className="wf-form-group">
+            <label className="wf-label" htmlFor="demo-semail">Adresse email</label>
+            <input className="wf-input" type="email" id="demo-semail" placeholder="nom@exemple.com" />
+          </div>
+          <div className="wf-form-group">
+            <label className="wf-label" htmlFor="demo-spass">Mot de passe</label>
+            <input className="wf-input" type="password" id="demo-spass" placeholder="••••••••" />
+            <span className="wf-help">Minimum 8 caracteres, 1 majuscule, 1 chiffre</span>
+          </div>
+          <div className="wf-check">
+            <input type="checkbox" id="demo-terms" />
+            <label htmlFor="demo-terms">J'accepte les conditions d'utilisation</label>
+          </div>
+          <button className="wf-btn wf-btn--primary wf-w-full" data-action="signup">Creer mon compte</button>
+        </form>
+        <p className="wf-text--sm wf-text--muted wf-mt-3">
           Deja un compte ? <a href="#" onClick={e => e.preventDefault()}>Se connecter</a>
         </p>
       </div>
-    </div>
+    </AuthSplitLayout>
   );
 }
 
 function ResetPasswordDemo() {
   return (
-    <div className="wf-flex-center" style={{ minHeight: '400px', background: 'var(--wf-bg)' }}>
-      <div className="wf-container--narrow" style={{ width: '100%', padding: '1.5rem' }}>
-        <div className="wf-text--center wf-mb-3" data-component="app-logo">
+    <AuthSplitLayout>
+      <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div className="wf-mb-3" data-component="app-logo">
           <div className="wf-h2">MonApp</div>
         </div>
-        <div className="wf-card" style={{ padding: '1.5rem' }}>
-          <div className="wf-stack--lg">
-            <div>
-              <h2 className="wf-h3">Mot de passe oublie</h2>
-              <p className="wf-text--muted wf-text--sm wf-mt-1">Entrez votre email, nous vous enverrons un lien de reinitialisation.</p>
-            </div>
-            <form className="wf-stack" onSubmit={e => e.preventDefault()}>
-              <div className="wf-form-group">
-                <label className="wf-label" htmlFor="demo-reset-email">Adresse email</label>
-                <input className="wf-input" type="email" id="demo-reset-email" placeholder="nom@exemple.com" />
-              </div>
-              <button className="wf-btn wf-btn--primary wf-w-full" data-action="reset-password">Envoyer le lien</button>
-            </form>
-            <p className="wf-text--center wf-text--sm">
-              <a href="#" onClick={e => e.preventDefault()}>Retour a la connexion</a>
-            </p>
+        <div className="wf-stack--lg">
+          <div>
+            <h2 className="wf-h3">Mot de passe oublie</h2>
+            <p className="wf-text--muted wf-text--sm wf-mt-1">Entrez votre email, nous vous enverrons un lien de reinitialisation.</p>
           </div>
+          <form className="wf-stack--lg" onSubmit={e => e.preventDefault()}>
+            <div className="wf-form-group">
+              <label className="wf-label" htmlFor="demo-reset-email">Adresse email</label>
+              <input className="wf-input" type="email" id="demo-reset-email" placeholder="nom@exemple.com" />
+            </div>
+            <button className="wf-btn wf-btn--primary wf-w-full" data-action="reset-password">Envoyer le lien</button>
+          </form>
+          <p className="wf-text--sm">
+            <a href="#" onClick={e => e.preventDefault()}>Retour a la connexion</a>
+          </p>
         </div>
       </div>
-    </div>
+    </AuthSplitLayout>
   );
 }
 
@@ -183,20 +196,20 @@ function HomeDemo({ navigate }) {
             </div>
             <button className="wf-btn wf-btn--primary" data-action="create">+ Nouveau</button>
           </div>
-          <div className="wf-grid--3 wf-mb-3">
-            <div className="wf-card">
+          <div className="wf-row wf-mb-3" style={{ flexDirection: 'row', gap: '1rem' }}>
+            <div className="wf-card wf-col">
               <div className="wf-stat">
                 <div className="wf-stat__value">12</div>
                 <div className="wf-stat__label">Actifs</div>
               </div>
             </div>
-            <div className="wf-card">
+            <div className="wf-card wf-col">
               <div className="wf-stat">
                 <div className="wf-stat__value">3</div>
                 <div className="wf-stat__label">En attente</div>
               </div>
             </div>
-            <div className="wf-card">
+            <div className="wf-card wf-col">
               <div className="wf-stat">
                 <div className="wf-stat__value">89%</div>
                 <div className="wf-stat__label">Completion</div>
@@ -209,11 +222,11 @@ function HomeDemo({ navigate }) {
               <button className="wf-btn wf-btn--sm">Voir tout</button>
             </div>
             <div className="wf-card__body" style={{ padding: 0 }}>
-              <ul className="wf-list">
+              <ul className="wf-list" style={{ border: 'none' }}>
                 <li className="wf-list__item">
                   <div className="wf-avatar wf-avatar--sm">MD</div>
                   <div style={{ flex: 1 }}>
-                    <div className="wf-text--sm"><strong>Marie Dupont</strong> a modifie "Rapport Q4"</div>
+                    <div className="wf-text--sm"><strong>Marie Dupont</strong> a modifie &quot;Rapport Q4&quot;</div>
                     <div className="wf-text--xs wf-text--muted">Il y a 2 heures</div>
                   </div>
                 </li>
@@ -229,7 +242,7 @@ function HomeDemo({ navigate }) {
           </div>
         </main>
       </div>
-      <BottomNavDemo />
+      {/* BottomNav hidden on desktop — shown only via wf-show-mobile in real usage */}
     </div>
   );
 }
@@ -252,7 +265,7 @@ export default function TemplateShowcase({ navigate }) {
       <div>
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 2000, background: 'var(--wf-text)', color: 'var(--wf-white)', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.875rem' }}>
           <span><strong>Template:</strong> {active}</span>
-          <button onClick={() => setActive(null)} style={{ background: 'transparent', border: '1px solid var(--wf-white)', color: 'var(--wf-white)', padding: '0.25rem 0.75rem', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.75rem' }}>
+          <button onClick={() => setActive(null)} style={{ background: 'transparent', border: '1px solid var(--wf-white)', color: 'var(--wf-white)', padding: '0.25rem 0.75rem', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.75rem', borderRadius: '4px' }}>
             Retour a l'index
           </button>
         </div>
@@ -269,13 +282,13 @@ export default function TemplateShowcase({ navigate }) {
         <h1 className="wf-h1 wf-mb-1">Templates GRAYBOX</h1>
         <p className="wf-text--muted wf-mb-3">Cliquez sur un template pour le voir en plein ecran</p>
 
-        <div className="wf-grid--2">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.25rem' }}>
           {Object.keys(TEMPLATES).map(name => (
-            <div key={name} className="wf-card" style={{ cursor: 'pointer', overflow: 'hidden' }} onClick={() => setActive(name)}>
+            <div key={name} className="wf-card" style={{ cursor: 'pointer', overflow: 'hidden', padding: 0 }} onClick={() => setActive(name)}>
               <div style={{ transform: 'scale(0.45)', transformOrigin: 'top left', height: '280px', width: '222%', pointerEvents: 'none' }}>
                 {(() => { const T = TEMPLATES[name]; return <T navigate={() => {}} />; })()}
               </div>
-              <div className="wf-card__footer">
+              <div style={{ padding: '1rem 1.25rem', borderTop: '1px solid var(--wf-border)' }}>
                 <h2 className="wf-h4">{name}</h2>
                 <div className="wf-text--xs wf-text--muted">_templates/screens/{name.replace(' (Dashboard)', '')}.jsx</div>
               </div>
@@ -286,16 +299,20 @@ export default function TemplateShowcase({ navigate }) {
         <div className="wf-divider wf-mt-3 wf-mb-2" />
 
         <h2 className="wf-h2 wf-mb-2">Composants partages</h2>
-        <div className="wf-grid--2">
-          <div className="wf-card">
-            <div className="wf-card__header"><span className="wf-h4">Sidebar (desktop)</span></div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.25rem' }}>
+          <div className="wf-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--wf-border)' }}>
+              <span className="wf-h4">Sidebar (desktop)</span>
+            </div>
             <div style={{ height: '300px', overflow: 'hidden' }}>
               <SidebarDemo navigate={() => {}} currentScreen="Home" />
             </div>
           </div>
-          <div className="wf-card">
-            <div className="wf-card__header"><span className="wf-h4">Bottom Nav (mobile)</span></div>
-            <div style={{ padding: '1rem' }}>
+          <div className="wf-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--wf-border)' }}>
+              <span className="wf-h4">Bottom Nav (mobile)</span>
+            </div>
+            <div style={{ padding: '1.5rem' }}>
               <BottomNavDemo />
             </div>
           </div>
