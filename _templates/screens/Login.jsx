@@ -13,7 +13,7 @@ export default function Login({ navigate, projectName = '[Projet]', logoUrl }) {
   return (
     <CenteredLayout>
       {/* Logo / Nom de l'app */}
-      <div className="wf-text--center wf-mb-3" data-component="app-logo">
+      <div className="wf-text--center wf-mb-4" data-component="app-logo">
         {logoUrl ? (
           <img src={logoUrl} alt={projectName} style={{ maxHeight: '3rem', margin: '0 auto' }} />
         ) : (
@@ -23,7 +23,7 @@ export default function Login({ navigate, projectName = '[Projet]', logoUrl }) {
       </div>
 
       {/* Formulaire de connexion */}
-      <div className="wf-card" style={{ padding: '1.5rem' }}>
+      <div className="wf-card" style={{ padding: '2rem' }}>
         <form className="wf-stack--lg" onSubmit={(e) => e.preventDefault()}>
           <div className="wf-form-group">
             <label className="wf-label" htmlFor="email">Adresse email</label>

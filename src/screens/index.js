@@ -3,3 +3,4 @@
 
 export { default as ScreenIndex } from './ScreenIndex';
 export { default as TemplateShowcase } from './TemplateShowcase';
+export { default as UIKit } from './UIKit';

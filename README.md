@@ -63,7 +63,7 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 - **JSX/React + Vite** : composants React avec preview live (HMR). Pas de framework lourd, juste Vite + React.
 - **Philosophie wireframe** : 90% gris, 10% couleur primaire. Bordures fines et solides (gris clair), pas d'etats hover. Focus sur structure et flows.
 - **Composants partages** : sidebar, bottom nav, layouts sont des imports React — modification en un seul endroit, propagation automatique.
-- **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, bottom nav mobile. Modals/drawers plein ecran sur mobile. Classes : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-hide-desktop`, `wf-btn--block-mobile`.
+- **Responsive** : 3 breakpoints (mobile < 480px, tablette < 768px, desktop). Sidebar desktop, topbar burger + drawer mobile (par defaut). Bottom nav disponible en alternative. Modals/drawers plein ecran sur mobile. Classes : `wf-hide-mobile`, `wf-hide-tablet`, `wf-show-mobile`, `wf-hide-desktop`, `wf-btn--block-mobile`.
 - **Auto-documente** : chaque ecran contient sa documentation (JSDoc, attributs `data-*`, `data-transition`)
 - **Persistant** : `project-state.md` garde la memoire entre les sessions
 - **2 modes d'export** : wireframe (rapide, structure uniquement) ou full (avec design system)
@@ -84,13 +84,13 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 │   ├── main.jsx           Bootstrap React
 │   ├── App.jsx            Screen dispatcher + routing state-based
 │   ├── styles/
-│   │   └── wireframe.css  ~70 composants CSS style wireframe
+│   │   └── wireframe.css  ~170 composants CSS style wireframe
 │   ├── components/        Composants partages (imports React)
 │   │   ├── WfLink.jsx     Helper de navigation
-│   │   ├── AppLayout.jsx  Sidebar + main + BottomNav
+│   │   ├── AppLayout.jsx  Sidebar + main + burger menu mobile
 │   │   ├── CenteredLayout.jsx  Pour ecrans auth (login, signup)
 │   │   ├── Sidebar.jsx    Sidebar desktop
-│   │   └── BottomNav.jsx  Navigation mobile
+│   │   └── BottomNav.jsx  Navigation mobile (optionnel)
 │   └── screens/
 │       ├── index.js       Screen registry (barrel)
 │       └── ScreenIndex.jsx  Index visuel auto-genere
@@ -106,13 +106,13 @@ Tu donnes le tout en input a BMAD ou a un LLM pour le vrai dev.
 
 ## Composants CSS disponibles
 
-`src/styles/wireframe.css` fournit ~80 composants en style wireframe (bordures fines solides, gris clair) :
+`src/styles/wireframe.css` fournit ~170 composants en style wireframe (bordures fines solides, gris clair) :
 
 **Layout** : page, container, row, col, stack, grid, sidebar layout
-**Navigation** : navbar, sidebar nav, tabs, breadcrumbs, pagination, bottom nav (mobile)
+**Navigation** : navbar, sidebar nav, tabs, breadcrumbs, pagination, topbar burger (mobile), bottom nav (optionnel)
 **Surfaces** : card, panel, divider
 **Boutons** : primary, ghost, danger, icon, button group (sm, lg)
-**Formulaires** : input, textarea, select, checkbox, radio, toggle, search, upload zone
+**Formulaires** : input, textarea, select, multi-select, searchable select, checkbox, radio, toggle, search, upload zone
 **Donnees** : table, list, badge, tag, chip, avatar, avatar group, stat card
 **Feedback** : alert (info, success, warning, error), toast, snackbar, modal, drawer, bottom sheet
 **Overlays** : dropdown, tooltip, spotlight/command palette
@@ -128,11 +128,11 @@ Le dossier `_templates/` contient des ecrans JSX de reference pour les patterns 
 - **Login.jsx** : page de connexion (CenteredLayout)
 - **Signup.jsx** : page d'inscription avec validation (CenteredLayout)
 - **ResetPassword.jsx** : mot de passe oublie (CenteredLayout)
-- **Home.jsx** : page d'accueil authentifiee avec sidebar desktop et bottom nav mobile (AppLayout)
+- **Home.jsx** : page d'accueil authentifiee avec sidebar desktop et burger menu mobile (AppLayout)
 
 ## Navigation entre ecrans
 
-La navigation utilise un state React (`currentScreen`) au lieu d'URLs :
+La navigation utilise un state React (`currentScreen`) avec hash-based routing (URLs `#ScreenName`, bouton retour navigateur fonctionnel) :
 
 ```jsx
 // Dans un ecran — utiliser WfLink

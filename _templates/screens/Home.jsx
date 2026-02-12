@@ -19,12 +19,12 @@ export default function Home({ navigate, currentScreen }) {
       </div>
 
       {/* Titre de la page */}
-      <div className="wf-row wf-row--center wf-row--between wf-mb-3">
-        <div>
-          <h1 className="wf-h1">Bonjour, Marie</h1>
-          <p className="wf-text--muted">Voici votre tableau de bord</p>
-        </div>
-        <div className="wf-row wf-row--center" style={{ gap: '0.5rem' }}>
+      <div className="wf-mb-3">
+        <div className="wf-row wf-row--center wf-row--between" style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
+          <div>
+            <h1 className="wf-h1" style={{ marginBottom: '0.125rem' }}>Bonjour, Marie</h1>
+            <p className="wf-text--muted">Voici votre tableau de bord</p>
+          </div>
           <button className="wf-btn wf-btn--primary" data-action="create"
             data-note="Action principale — adapter au projet">
             + Nouveau
@@ -33,7 +33,7 @@ export default function Home({ navigate, currentScreen }) {
       </div>
 
       {/* Stats rapides */}
-      <div className="wf-grid--3 wf-mb-3">
+      <div className="wf-row wf-mb-3" style={{ gap: '1rem' }}>
         <div className="wf-card">
           <div className="wf-stat">
             <div className="wf-stat__value">12</div>

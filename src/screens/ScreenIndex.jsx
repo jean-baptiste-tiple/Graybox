@@ -5,6 +5,15 @@
  */
 import * as screens from './index';
 
+const DISPLAY_NAMES = {
+  TemplateShowcase: 'Templates',
+  UIKit: 'UI Kit',
+};
+
+function displayName(key) {
+  return DISPLAY_NAMES[key] || key.replace(/([a-z])([A-Z])/g, '$1 $2');
+}
+
 export default function ScreenIndex({ navigate }) {
   const screenNames = Object.keys(screens).filter(k => k !== 'ScreenIndex');
 
@@ -30,7 +39,7 @@ export default function ScreenIndex({ navigate }) {
                 className="wf-card"
                 style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                  <h2 className="wf-h4" style={{ marginBottom: '0.125rem' }}>{name}</h2>
+                  <h2 className="wf-h4" style={{ marginBottom: '0.125rem' }}>{displayName(name)}</h2>
                   <div className="wf-text--sm wf-text--muted">src/screens/{name}.jsx</div>
                 </div>
                 <span className="wf-text--muted" style={{ fontSize: '1.25rem' }}>&#8250;</span>

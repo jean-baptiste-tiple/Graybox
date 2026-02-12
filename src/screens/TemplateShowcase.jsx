@@ -4,6 +4,39 @@
  */
 import { useState } from 'react';
 
+// --- Nav bubble (shared) ---
+function NavBubble({ label, onClick }) {
+  return (
+    <div
+      style={{
+        position: 'fixed', top: '0.75rem', left: '0.75rem', zIndex: 2000,
+        display: 'flex', alignItems: 'center', gap: '0.75rem',
+        background: 'var(--wf-text)', color: 'var(--wf-white)',
+        borderRadius: '999px', padding: '0.5rem',
+        fontSize: '0.75rem', cursor: 'default',
+        transition: 'all 0.2s ease',
+        maxWidth: '2rem', overflow: 'hidden', whiteSpace: 'nowrap',
+        opacity: 0.6,
+      }}
+      onMouseEnter={e => { e.currentTarget.style.maxWidth = '320px'; e.currentTarget.style.padding = '0.5rem 1rem'; e.currentTarget.style.opacity = '1'; }}
+      onMouseLeave={e => { e.currentTarget.style.maxWidth = '2rem'; e.currentTarget.style.padding = '0.5rem'; e.currentTarget.style.opacity = '0.6'; }}
+    >
+      <span style={{ fontWeight: 700, fontSize: '0.8rem', flexShrink: 0, width: '1rem', textAlign: 'center' }}>i</span>
+      <span style={{ flexShrink: 0 }}>{label}</span>
+      <button
+        onClick={onClick}
+        style={{
+          flexShrink: 0, background: 'transparent', border: '1px solid var(--wf-white)',
+          color: 'var(--wf-white)', padding: '0.2rem 0.625rem', cursor: 'pointer',
+          fontFamily: 'inherit', fontSize: '0.7rem', borderRadius: '4px',
+        }}
+      >
+        Index
+      </button>
+    </div>
+  );
+}
+
 // --- Templates inlines (copies des _templates/) ---
 
 // Components
@@ -18,7 +51,7 @@ function WfLinkDemo({ to, transition = 'none', navigate, children, className, ..
 
 function SidebarDemo({ navigate, currentScreen, projectName = 'MonApp', logoUrl }) {
   return (
-    <aside className="wf-sidebar" style={{ display: 'block', position: 'relative', borderRight: '1px solid var(--wf-border)' }} data-component="sidebar-app">
+    <aside className="wf-sidebar" data-component="sidebar-app">
       <div className="wf-mb-3" data-component="app-logo">
         {logoUrl ? (
           <img src={logoUrl} alt={projectName} style={{ maxHeight: '2rem', maxWidth: '100%' }} />
@@ -61,7 +94,7 @@ function BottomNavDemo() {
 // --- Auth split layout helper ---
 function AuthSplitLayout({ children }) {
   return (
-    <div style={{ display: 'flex', minHeight: '600px' }}>
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
       <div style={{ flex: 1, background: 'var(--wf-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid var(--wf-border)' }}>
         <div style={{ textAlign: 'center', color: 'var(--wf-text-light)', padding: '2rem' }}>
           <div style={{ width: '200px', height: '200px', background: 'var(--wf-border)', borderRadius: 'var(--wf-radius-lg)', margin: '0 auto 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', opacity: 0.5 }}>
@@ -83,7 +116,7 @@ function LoginDemo({ navigate }) {
   return (
     <AuthSplitLayout>
       <div style={{ width: '100%', maxWidth: '380px' }}>
-        <div className="wf-mb-3" data-component="app-logo">
+        <div className="wf-mb-4" data-component="app-logo">
           <div className="wf-h2">MonApp</div>
           <p className="wf-text--muted wf-mt-1">Connectez-vous a votre compte</p>
         </div>
@@ -105,7 +138,7 @@ function LoginDemo({ navigate }) {
           </div>
           <button className="wf-btn wf-btn--primary wf-w-full" data-action="login">Se connecter</button>
         </form>
-        <p className="wf-text--sm wf-text--muted wf-mt-3">
+        <p className="wf-text--sm wf-text--muted wf-mt-4">
           Pas encore de compte ? <a href="#" onClick={e => e.preventDefault()}>Creer un compte</a>
         </p>
       </div>
@@ -117,21 +150,11 @@ function SignupDemo() {
   return (
     <AuthSplitLayout>
       <div style={{ width: '100%', maxWidth: '380px' }}>
-        <div className="wf-mb-3" data-component="app-logo">
+        <div className="wf-mb-4" data-component="app-logo">
           <div className="wf-h2">MonApp</div>
           <p className="wf-text--muted wf-mt-1">Creez votre compte</p>
         </div>
         <form className="wf-stack--lg" onSubmit={e => e.preventDefault()}>
-          <div className="wf-row" style={{ flexDirection: 'row' }}>
-            <div className="wf-form-group wf-col">
-              <label className="wf-label" htmlFor="demo-prenom">Prenom</label>
-              <input className="wf-input" id="demo-prenom" placeholder="Marie" />
-            </div>
-            <div className="wf-form-group wf-col">
-              <label className="wf-label" htmlFor="demo-nom">Nom</label>
-              <input className="wf-input" id="demo-nom" placeholder="Dupont" />
-            </div>
-          </div>
           <div className="wf-form-group">
             <label className="wf-label" htmlFor="demo-semail">Adresse email</label>
             <input className="wf-input" type="email" id="demo-semail" placeholder="nom@exemple.com" />
@@ -139,15 +162,10 @@ function SignupDemo() {
           <div className="wf-form-group">
             <label className="wf-label" htmlFor="demo-spass">Mot de passe</label>
             <input className="wf-input" type="password" id="demo-spass" placeholder="••••••••" />
-            <span className="wf-help">Minimum 8 caracteres, 1 majuscule, 1 chiffre</span>
-          </div>
-          <div className="wf-check">
-            <input type="checkbox" id="demo-terms" />
-            <label htmlFor="demo-terms">J'accepte les conditions d'utilisation</label>
           </div>
           <button className="wf-btn wf-btn--primary wf-w-full" data-action="signup">Creer mon compte</button>
         </form>
-        <p className="wf-text--sm wf-text--muted wf-mt-3">
+        <p className="wf-text--sm wf-text--muted wf-mt-4">
           Deja un compte ? <a href="#" onClick={e => e.preventDefault()}>Se connecter</a>
         </p>
       </div>
@@ -159,7 +177,7 @@ function ResetPasswordDemo() {
   return (
     <AuthSplitLayout>
       <div style={{ width: '100%', maxWidth: '380px' }}>
-        <div className="wf-mb-3" data-component="app-logo">
+        <div className="wf-mb-4" data-component="app-logo">
           <div className="wf-h2">MonApp</div>
         </div>
         <div className="wf-stack--lg">
@@ -174,7 +192,7 @@ function ResetPasswordDemo() {
             </div>
             <button className="wf-btn wf-btn--primary wf-w-full" data-action="reset-password">Envoyer le lien</button>
           </form>
-          <p className="wf-text--sm">
+          <p className="wf-text--sm wf-mt-2">
             <a href="#" onClick={e => e.preventDefault()}>Retour a la connexion</a>
           </p>
         </div>
@@ -184,19 +202,51 @@ function ResetPasswordDemo() {
 }
 
 function HomeDemo({ navigate }) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div className="wf-page">
+      {/* Mobile topbar with burger */}
+      <div className="wf-topbar">
+        <span className="wf-topbar__title">MonApp</span>
+        <button className="wf-topbar__burger" onClick={() => setDrawerOpen(true)}>
+          <span /><span /><span />
+        </button>
+      </div>
+      {/* Mobile drawer */}
+      {drawerOpen && (
+        <>
+          <div className="wf-drawer-overlay" onClick={() => setDrawerOpen(false)} />
+          <div className="wf-mobile-drawer">
+            <button className="wf-mobile-drawer__close" onClick={() => setDrawerOpen(false)}>&times;</button>
+            <div className="wf-mb-3" data-component="app-logo">
+              <div className="wf-h3">MonApp</div>
+            </div>
+            <nav className="wf-sidenav">
+              <a href="#" className="wf-sidenav__item wf-sidenav__item--active" onClick={e => e.preventDefault()}>&#9750; Accueil</a>
+              <a href="#" className="wf-sidenav__item" onClick={e => e.preventDefault()}>&#128196; Projets</a>
+              <a href="#" className="wf-sidenav__item" onClick={e => e.preventDefault()}>&#128100; Equipe</a>
+            </nav>
+            <div style={{ flex: 1, minHeight: '2rem' }} />
+            <nav className="wf-sidenav" style={{ borderTop: '1px solid var(--wf-border)', paddingTop: '0.75rem' }}>
+              <a href="#" className="wf-sidenav__item" onClick={e => e.preventDefault()}>&#9881; Parametres</a>
+              <a href="#" className="wf-sidenav__item" onClick={e => e.preventDefault()}>&#9823; Mon compte</a>
+            </nav>
+          </div>
+        </>
+      )}
       <div className="wf-layout-sidebar">
         <SidebarDemo navigate={navigate} currentScreen="Home" />
         <main className="wf-main">
-          <div className="wf-row wf-row--center wf-row--between wf-mb-3" style={{ flexDirection: 'row' }}>
-            <div>
-              <h1 className="wf-h1">Bonjour, Marie</h1>
-              <p className="wf-text--muted">Voici votre tableau de bord</p>
+          <div className="wf-mb-3">
+            <div className="wf-row wf-row--center wf-row--between" style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <h1 className="wf-h1" style={{ marginBottom: '0.125rem' }}>Bonjour, Marie</h1>
+                <p className="wf-text--muted">Voici votre tableau de bord</p>
+              </div>
+              <button className="wf-btn wf-btn--primary" data-action="create">+ Nouveau</button>
             </div>
-            <button className="wf-btn wf-btn--primary" data-action="create">+ Nouveau</button>
           </div>
-          <div className="wf-row wf-mb-3" style={{ flexDirection: 'row', gap: '1rem' }}>
+          <div className="wf-row wf-mb-3" style={{ gap: '1rem' }}>
             <div className="wf-card wf-col">
               <div className="wf-stat">
                 <div className="wf-stat__value">12</div>
@@ -222,7 +272,7 @@ function HomeDemo({ navigate }) {
               <button className="wf-btn wf-btn--sm">Voir tout</button>
             </div>
             <div className="wf-card__body" style={{ padding: 0 }}>
-              <ul className="wf-list" style={{ border: 'none' }}>
+              <ul className="wf-list">
                 <li className="wf-list__item">
                   <div className="wf-avatar wf-avatar--sm">MD</div>
                   <div style={{ flex: 1 }}>
@@ -242,7 +292,6 @@ function HomeDemo({ navigate }) {
           </div>
         </main>
       </div>
-      {/* BottomNav hidden on desktop — shown only via wf-show-mobile in real usage */}
     </div>
   );
 }
@@ -263,21 +312,15 @@ export default function TemplateShowcase({ navigate }) {
     const Template = TEMPLATES[active];
     return (
       <div>
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 2000, background: 'var(--wf-text)', color: 'var(--wf-white)', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.875rem' }}>
-          <span><strong>Template:</strong> {active}</span>
-          <button onClick={() => setActive(null)} style={{ background: 'transparent', border: '1px solid var(--wf-white)', color: 'var(--wf-white)', padding: '0.25rem 0.75rem', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.75rem', borderRadius: '4px' }}>
-            Retour a l'index
-          </button>
-        </div>
-        <div style={{ paddingTop: '2.5rem' }}>
-          <Template navigate={(screen) => alert(`Navigation → ${screen}`)} />
-        </div>
+        <NavBubble label={active} onClick={() => setActive(null)} />
+        <Template navigate={(screen) => alert(`Navigation → ${screen}`)} />
       </div>
     );
   }
 
   return (
     <div className="wf-page" style={{ background: 'var(--wf-bg)' }}>
+      <NavBubble label="Templates" onClick={() => navigate('ScreenIndex')} />
       <div className="wf-container" style={{ padding: '2rem' }}>
         <h1 className="wf-h1 wf-mb-1">Templates GRAYBOX</h1>
         <p className="wf-text--muted wf-mb-3">Cliquez sur un template pour le voir en plein ecran</p>
@@ -305,15 +348,27 @@ export default function TemplateShowcase({ navigate }) {
               <span className="wf-h4">Sidebar (desktop)</span>
             </div>
             <div style={{ height: '300px', overflow: 'hidden' }}>
-              <SidebarDemo navigate={() => {}} currentScreen="Home" />
+              <aside className="wf-sidebar" style={{ display: 'flex', flexDirection: 'column' }} data-component="sidebar-preview">
+                <div className="wf-mb-3"><div className="wf-h3">MonApp</div></div>
+                <nav className="wf-sidenav">
+                  <a href="#" className="wf-sidenav__item wf-sidenav__item--active" onClick={e => e.preventDefault()}>&#9750; Accueil</a>
+                  <a href="#" className="wf-sidenav__item" onClick={e => e.preventDefault()}>&#128196; Projets</a>
+                  <a href="#" className="wf-sidenav__item" onClick={e => e.preventDefault()}>&#128100; Equipe</a>
+                </nav>
+              </aside>
             </div>
           </div>
           <div className="wf-card" style={{ padding: 0, overflow: 'hidden' }}>
             <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--wf-border)' }}>
-              <span className="wf-h4">Bottom Nav (mobile)</span>
+              <span className="wf-h4">Topbar Burger (mobile)</span>
             </div>
-            <div style={{ padding: '1.5rem' }}>
-              <BottomNavDemo />
+            <div>
+              <div className="wf-topbar" style={{ display: 'flex', position: 'relative' }}>
+                <span className="wf-topbar__title">MonApp</span>
+                <button className="wf-topbar__burger" style={{ cursor: 'default' }}>
+                  <span /><span /><span />
+                </button>
+              </div>
             </div>
           </div>
         </div>

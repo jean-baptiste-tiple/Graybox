@@ -4,7 +4,7 @@
  * @flow-in Login (lien)
  * @flow-out Home (succes), Login (lien)
  * @persona Nouveaux utilisateurs
- * @data User (nom, email, mot de passe)
+ * @data User (email, mot de passe)
  */
 import CenteredLayout from '../components/CenteredLayout';
 import WfLink from '../components/WfLink';
@@ -13,7 +13,7 @@ export default function Signup({ navigate, projectName = '[Projet]', logoUrl }) 
   return (
     <CenteredLayout>
       {/* Logo / Nom de l'app */}
-      <div className="wf-text--center wf-mb-3" data-component="app-logo">
+      <div className="wf-text--center wf-mb-4" data-component="app-logo">
         {logoUrl ? (
           <img src={logoUrl} alt={projectName} style={{ maxHeight: '3rem', margin: '0 auto' }} />
         ) : (
@@ -23,23 +23,8 @@ export default function Signup({ navigate, projectName = '[Projet]', logoUrl }) 
       </div>
 
       {/* Formulaire d'inscription */}
-      <div className="wf-card" style={{ padding: '1.5rem' }}>
+      <div className="wf-card" style={{ padding: '2rem' }}>
         <form className="wf-stack--lg" onSubmit={(e) => e.preventDefault()}>
-          <div className="wf-row">
-            <div className="wf-col">
-              <div className="wf-form-group">
-                <label className="wf-label" htmlFor="firstname">Prenom</label>
-                <input type="text" id="firstname" className="wf-input" placeholder="Marie" />
-              </div>
-            </div>
-            <div className="wf-col">
-              <div className="wf-form-group">
-                <label className="wf-label" htmlFor="lastname">Nom</label>
-                <input type="text" id="lastname" className="wf-input" placeholder="Dupont" />
-              </div>
-            </div>
-          </div>
-
           <div className="wf-form-group">
             <label className="wf-label wf-label--required" htmlFor="email">Adresse email</label>
             <input type="email" id="email" className="wf-input" placeholder="vous@exemple.com" />
@@ -47,18 +32,7 @@ export default function Signup({ navigate, projectName = '[Projet]', logoUrl }) 
 
           <div className="wf-form-group">
             <label className="wf-label wf-label--required" htmlFor="password">Mot de passe</label>
-            <input type="password" id="password" className="wf-input" placeholder="8 caracteres minimum" />
-            <span className="wf-help">Au moins 8 caracteres, une majuscule et un chiffre</span>
-          </div>
-
-          <div className="wf-form-group">
-            <label className="wf-label wf-label--required" htmlFor="password-confirm">Confirmer le mot de passe</label>
-            <input type="password" id="password-confirm" className="wf-input" placeholder="Retapez votre mot de passe" />
-          </div>
-
-          <div className="wf-check">
-            <input type="checkbox" id="terms" />
-            <label htmlFor="terms">J'accepte les <a href="#">conditions d'utilisation</a></label>
+            <input type="password" id="password" className="wf-input" placeholder="Votre mot de passe" />
           </div>
 
           <button type="button" className="wf-btn wf-btn--primary wf-btn--lg wf-w-full"
@@ -76,7 +50,7 @@ export default function Signup({ navigate, projectName = '[Projet]', logoUrl }) 
       </div>
 
       {/* Lien vers connexion */}
-      <p className="wf-text--center wf-text--sm wf-text--muted wf-mt-2">
+      <p className="wf-text--center wf-text--sm wf-text--muted wf-mt-3">
         Deja un compte ?{' '}
         <WfLink to="Login" transition="slide-right" navigate={navigate}>Se connecter</WfLink>
       </p>

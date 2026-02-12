@@ -13,7 +13,7 @@ export default function ResetPassword({ navigate, projectName = '[Projet]', logo
   return (
     <CenteredLayout>
       {/* Logo / Nom de l'app */}
-      <div className="wf-text--center wf-mb-3" data-component="app-logo">
+      <div className="wf-text--center wf-mb-4" data-component="app-logo">
         {logoUrl ? (
           <img src={logoUrl} alt={projectName} style={{ maxHeight: '3rem', margin: '0 auto' }} />
         ) : (
@@ -22,7 +22,7 @@ export default function ResetPassword({ navigate, projectName = '[Projet]', logo
       </div>
 
       {/* Etat par defaut : formulaire */}
-      <div className="wf-card" style={{ padding: '1.5rem' }}>
+      <div className="wf-card" style={{ padding: '2rem' }}>
         <div className="wf-stack--lg">
           <div>
             <h1 className="wf-h3">Mot de passe oublie</h1>
@@ -41,7 +41,7 @@ export default function ResetPassword({ navigate, projectName = '[Projet]', logo
       </div>
 
       {/* ETAT: Confirmation (email envoye)
-      <div className="wf-card" style={{ padding: '1.5rem' }}>
+      <div className="wf-card" style={{ padding: '2rem' }}>
         <div className="wf-stack--lg">
           <div className="wf-text--center">
             <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>&#9993;</div>
